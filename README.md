@@ -1,7 +1,10 @@
-thebookofopenlayers3
-====================
+The Book of OpenLayers3 (Code samples)
+======================================
 
-Code samples for The Book of OpenLayers3
+This repository contains the project I used to create the code samples for [The Book of OpenLayers3](https://leanpub.com/thebookofopenlayers3).
 
+![The Book of OpenLayers3](https://s3.amazonaws.com/titlepages.leanpub.com/thebookofopenlayers3/large?1405626590)
+
+<hr/>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
