@@ -1,8 +1,7 @@
 (function(){
 	'use strict';
 
-	// Show loading message
-
+	// Process chapter summary data and create elements
 	var processChaptersSummary = function(data) {
 		var chapter, sample, ci, si, elems='', imgsrc;
 
