@@ -18,6 +18,7 @@ module.exports = function (grunt) {
     // Configurable paths
     var config = {
         app: 'app',
+        tpl: 'app_tpl',
         dist: 'dist'
     };
 
@@ -50,6 +51,10 @@ module.exports = function (grunt) {
             styles: {
                 files: ['<%= config.app %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
+            },
+            templates: {
+                files: ['<%= config.tpl %>/{,*/}*.html'],
+                tasks: ['includes']
             },
             livereload: {
                 options: {
@@ -246,7 +251,7 @@ module.exports = function (grunt) {
         },
 
         includes: {
-            files: {
+            dist: {
                 cwd: 'app_tpl',
                 src: ['index.html', 'samples/**/*.html'],
                 dest: 'app/',
