@@ -43,7 +43,7 @@
 		file=0;
 	};
 
-
+	// Load specified file and invoke callback if success
 	var loadFile = function(url, callback) {
 		$.get(url)
 		.done(function(data) {

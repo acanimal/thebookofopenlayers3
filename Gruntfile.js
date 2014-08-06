@@ -245,6 +245,15 @@ module.exports = function (grunt) {
             }
         },
 
+        includes: {
+            files: {
+                cwd: 'app_tpl',
+                src: ['index.html', 'samples/**/*.html'],
+                dest: 'app/',
+                exclude: 'includes'
+            }
+        },
+
         // By default, your `index.html`'s <!-- Usemin block --> will take care of
         // minification. These next options are pre-configured if you do not wish
         // to use the Usemin blocks.
@@ -356,6 +365,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'includes',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
