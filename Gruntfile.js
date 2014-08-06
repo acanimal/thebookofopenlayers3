@@ -53,7 +53,7 @@ module.exports = function (grunt) {
                 tasks: ['newer:copy:styles', 'autoprefixer']
             },
             templates: {
-                files: ['<%= config.tpl %>/{,*/}*.html'],
+                files: ['<%= config.tpl %>/**/*.html'],
                 tasks: ['includes']
             },
             livereload: {
@@ -252,10 +252,12 @@ module.exports = function (grunt) {
 
         includes: {
             dist: {
-                cwd: 'app_tpl',
+                cwd: '<%= config.tpl %>',
                 src: ['index.html', 'samples/**/*.html'],
-                dest: 'app/',
-                exclude: 'includes'
+                dest: '<%= config.app %>',
+                options: {
+                    includePath: '<%= config.tpl %>/includes'
+                }
             }
         },
 
