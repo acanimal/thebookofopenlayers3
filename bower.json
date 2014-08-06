@@ -5,7 +5,6 @@
   "dependencies": {
     "bootstrap": "~3.0.3",
     "jquery": "~1.11.0",
-    "shufflejs": "~2.1.2",
     "holderjs": "~2.3.2"
   },
   "devDependencies": {}
