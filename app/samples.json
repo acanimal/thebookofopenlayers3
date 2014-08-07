@@ -5,22 +5,24 @@
             {
                 "title": "A basic map",
                 "description": "Show the most basic way to create map",
-                "file": "samples/3010_basic_map.html"
+                "url": "chapter01_01_basic_map.html",
+                "thumbnail": true
             },
             {
                 "title": "Moving around",
                 "description": "Demonstrates how to programatically interact with the map",
-                "file": "samples/3020_moving_around.html"
+                "url": "samples/3020_moving_around.html",
+                "thumbnail": false
             },
             {
                 "title": "Animating the view",
                 "description": "Adding nice effect to the view changes",
-                "file": "samples/3030_animations.html"
+                "url": "samples/3030_animations.html"
             },
             {
                 "title": "Fit an extent",
                 "description": "Focalize the view on a given extent",
-                "file": "samples/3021_fit_extent.html"
+                "url": "samples/3021_fit_extent.html"
             }
         ]
     },
@@ -30,32 +32,32 @@
             {
                 "title": "Adding/Removing layers",
                 "description": "Adding and removing layers from the map programmatically",
-                "file": "samples/4010_add_remove_layers.html"
+                "url": "samples/4010_add_remove_layers.html"
             },
             {
                 "title": "The layer stack",
                 "description": "Raise and lower layers within the layer stack",
-                "file": "samples/4020_raise_lower_layers.html"
+                "url": "samples/4020_raise_lower_layers.html"
             },
             {
                 "title": "Layer groups",
                 "description": "Grouping layers for better control",
-                "file": "samples/4030_layer_groups.html"
+                "url": "samples/4030_layer_groups.html"
             },
             {
                 "title": "Image layer",
                 "description": "Adding static images",
-                "file": "samples/4040_image_layer.html"
+                "url": "samples/4040_image_layer.html"
             },
             {
                 "title": "Layers and resolutions",
                 "description": "Visualizing layers depending on resolution",
-                "file": "samples/4050_layer_resolution.html"
+                "url": "samples/4050_layer_resolution.html"
             },
             {
                 "title": "Heatmap Layers",
                 "description": "Create hetmap from vector data",
-                "file": "samples/4060_heatmap_layer.html"
+                "url": "samples/4060_heatmap_layer.html"
             }
         ]
     },
@@ -65,22 +67,22 @@
             {
                 "title": "Tile providers",
                 "description": "Some tile providers offered by OpenLayers3",
-                "file": "samples/5010_raster_sources.html"
+                "url": "samples/5010_raster_sources.html"
             },
             {
                 "title": "WMTS source",
                 "description": "Requesting a WMTS server",
-                "file": "samples/5020_wmts.html"
+                "url": "samples/5020_wmts.html"
             },
             {
                 "title": "Vector source data",
                 "description": "Initialize a vector source using different properties",
-                "file": "samples/5030_vector_loading.html"
+                "url": "samples/5030_vector_loading.html"
             },
             {
                 "title": ">>>Maps synchronization",
                 "description": "How to sycnrhonize two maps using events or property binding",
-                "file": "samples/2_synchronize_maps.html"
+                "url": "samples/2_synchronize_maps.html"
             }
         ]
     }

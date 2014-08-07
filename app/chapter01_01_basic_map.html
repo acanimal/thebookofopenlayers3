@@ -64,13 +64,11 @@
                 </div>
             </div>
 
-            <div id="messageContainer" class="row marketing">
-                <div id="message" class="col-md-12 alert alert-info text-center" role="alert">
-                    Loading <code>samples.json</code> file...
-                </div>
-            </div>
+            <h2>Basic map</h2>
 
-            <div id="samples-container" class="row marketing"></div>
+            <p>This sample shows how to create a very basic map.</p>
+
+            <div id="map" class="map"></div>
 
             <div class="footer">
                 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
@@ -104,10 +102,6 @@
         <!-- OpenLayers -->
         <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
-
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -116,6 +110,29 @@
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <script>
+            /**
+             * Create a map using a 2D view with a tile layer retrieving tiles from 
+             * OpenStreetMap project
+             */
+            var map = new ol.Map({
+                // The DOM element that will contains the map
+                target: 'map',
+                // The initial set of layers
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                // The view to be used to show the map is a 2D
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 6
+                })
+            });
         </script>
 
     </body>

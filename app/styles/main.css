@@ -63,3 +63,9 @@ body {
     transform: scale(1.05);
 }
 
+/* Code samples */
+.map {
+    width: 100%;
+    height: 400px;
+}
+
