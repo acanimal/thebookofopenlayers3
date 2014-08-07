@@ -194,7 +194,7 @@ module.exports = function (grunt) {
             options: {
                 dest: '<%= config.dist %>'
             },
-            html: '<%= config.app %>/index.html'
+            html: ['<%= config.app %>/index.html']
         },
 
         // Performs rewrites based on rev and the useminPrepare configuration
@@ -253,7 +253,7 @@ module.exports = function (grunt) {
         includes: {
             dist: {
                 cwd: '<%= config.tpl %>',
-                src: ['index.html', 'samples/**/*.html'],
+                src: ['*.html'],
                 dest: '<%= config.app %>',
                 options: {
                     includePath: '<%= config.tpl %>/includes'
@@ -298,6 +298,7 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,png,txt}',
                         '.htaccess',
+                        'samples.json',
                         'images/{,*/}*.webp',
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*'
@@ -334,7 +335,6 @@ module.exports = function (grunt) {
             ]
         }
     });
-
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
@@ -381,8 +381,9 @@ module.exports = function (grunt) {
         'uglify',
         'copy:dist',
         'rev',
-        'usemin',
-        'htmlmin'
+        'usemin'
+        // ,
+        // 'htmlmin'
     ]);
 
     grunt.registerTask('default', [
