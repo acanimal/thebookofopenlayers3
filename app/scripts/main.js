@@ -2,7 +2,6 @@
 	'use strict';
 
 	var SAMPLES_FILE = 'samples.json';
-	var THUMBNAIL_FILE = '/thumbnail.png';
 
 	// Loads chapter summary data and create elements
 	var loadChaptersSummary = function(data) {
@@ -13,12 +12,12 @@
 
 			for(si=0; si<chapter.samples.length; si++) {
 				sample = chapter.samples[si];
-				imgsrc = sample.thumbnail ? sample.url + THUMBNAIL_FILE : 'holder.js/240x180/text:No Preview';
+				imgsrc = sample.thumbnail ? 'images/'+sample.thumbnail : 'images/nopreview.svg';
 
 				el = '<div class="sample col-xs-6 col-md-4 col-lg-3">' +
                     '<h5>'+ sample.title+'</h5>'+
                     '<a href="'+ sample.url +'">'+
-                    '<img data-src="'+ imgsrc +'" width="180" height="100">'+
+                    '<img src="'+ imgsrc +'" width="240" height="180">'+
                     '</a>'+
                     '<p class="small">'+ sample.description +'</p>'+
                     '<p class="small"><em>'+ chapter.title +'</em></p>'+

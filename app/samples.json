@@ -6,7 +6,7 @@
                 "title": "A basic map",
                 "description": "Show the most basic way to create map",
                 "url": "chapter01_01_basic_map.html",
-                "thumbnail": true
+                "thumbnail": "chapter01_01_basic_map.png"
             },
             {
                 "title": "Moving around",
