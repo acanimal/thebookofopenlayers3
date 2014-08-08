@@ -5,7 +5,6 @@
   "dependencies": {
     "bootstrap": "~3.0.3",
     "jquery": "~1.11.0",
-    "holderjs": "~2.3.2",
     "highlightjs": "~8.0.0"
   },
   "devDependencies": {}
