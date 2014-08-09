@@ -15,15 +15,15 @@
                 "thumbnail": false
             },
             {
+                "title": "Fit extent",
+                "description": "Focalize the view on a given extent",
+                "url": "samples/3021_fit_extent.html"
+            },
+            {
                 "title": "Animating the view",
                 "description": "Adding nice effect to the view changes",
                 "url": "samples/3030_animations.html"
-            },
-            {
-                "title": "Fit an extent",
-                "description": "Focalize the view on a given extent",
-                "url": "samples/3021_fit_extent.html"
-            }
+            }            
         ]
     },
     {

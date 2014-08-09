@@ -69,3 +69,6 @@ body {
     height: 400px;
 }
 
+pre {
+    padding: 0;
+}

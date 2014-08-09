@@ -11,7 +11,7 @@
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="../bower_components/highlightjs/styles/default.css" />
+        <link rel="stylesheet" href="../bower_components/highlightjs/styles/monokai.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -66,12 +66,15 @@
 
             <h2>Basic map</h2>
 
-            <p>This sample shows how to create a very basic map.</p>
+            <p>This sample shows how to create a very basic map with only one raster layer from the OpenStreetMap project.</p>
 
             <div id="map" class="map"></div>
 
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
             <div class="footer">
-                <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+                <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a>. Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
             </div>
 
         </div>
@@ -111,7 +114,7 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <script>
+        <script id="code">
             /**
              * Create a map using a 2D view with a tile layer retrieving tiles from 
              * OpenStreetMap project
@@ -126,12 +129,17 @@
                         source: new ol.source.OSM()
                     })
                 ],
-                // The view to be used to show the map is a 2D
+                // The view to be used to show the map.
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 6
                 })
             });
+        </script>
+
+        <script>
+            $('#code_text').text($('#code').text());
+            hljs.initHighlightingOnLoad();
         </script>
 
     </body>
