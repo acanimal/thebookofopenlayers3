@@ -10,8 +10,9 @@
 
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="../bower_components/highlightjs/styles/monokai.css" />
+        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../bower_components/highlightjs/styles/monokai.css" />
+        <link rel="stylesheet" href="../../bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -26,20 +27,6 @@
         <link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
 
         <style>
-            .map, .code {
-                height: 500px;
-                margin: 5px auto;
-            }
-            .map {
-                box-shadow: 5px 5px 5px #888;
-            }
-            .code {
-                overflow: auto;
-            }
-            #mapTab {
-                padding-top: 10px;
-            }
-
             ul.layerstack {
                 list-style: none;
             }
@@ -119,8 +106,6 @@
                 border-radius:5px;
             }
         </style>
-        <!-- Slider control from http://www.eyecon.ro/bootstrap-slider/ -->
-        <link rel="stylesheet" href="utils/slider/css/slider.css" type="text/css">
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -163,7 +148,7 @@
 
             <h2>Layer groups</h2>
 
-            <p>This sample shows how to create a very basic map with only one raster layer from the OpenStreetMap project.</p>
+            <p>This sample shows how we can group layers to take better control.</p>
 
             <div class="row">
 
@@ -188,8 +173,10 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+        <script src="../../bower_components/modernizr/modernizr.js"></script>
+        <script src="../../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../../bower_components/highlightjs/highlight.pack.js"></script>
+        <script src="../../bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -253,19 +240,18 @@
 
             // Create map
             var map = new ol.Map({
-                // The DOM element that will contains the map
-                target: 'map',
-                // Set of layers
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
                 layers: [layerOSM, layerMQ, layerStm],
-                // The view to be used to show the map is a 2D
+                // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([-100.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 4
                 })
             });
+
             // Name the root layer group
             map.getLayerGroup().set('name', 'Root');
-
 
             /**
              * Build a tree layer from the map layers with visible and opacity 

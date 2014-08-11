@@ -65,92 +65,11 @@
                 </div>
             </div>
 
-            <h2>Animating the view</h2>
+            <h2>Image layer</h2>
 
-            <p>Demonstrates how to work with animations to modify the view properties.</p>
+            <p>Show how you can load a static image and place within the map and integrate with other layers.</p>
 
-            Select the animation options and click at any location to see the effect:
-
-            <div style="margin-top: 5px;" class="alert alert-success">Note the tween <code>ol.easing.upAndDown</code> is
-                specially designed to work with the <code>ol.animation.bounce</code> animation.</div>
-
-            <div class="row">
-                <div class="col-md-6" id="animation">
-                    <h5>Animation:</h5>
-
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="animationGroup" value="pan" checked>
-                            ol.animation.pan
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="animationGroup" value="rotate">
-                            ol.animation.rotate
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="animationGroup" value="zoom">
-                            ol.animation.zoom
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="animationGroup" value="bounce">
-                            ol.animation.bounce
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-md-6" id="tween">
-                    <h5>Tween:</h5>
-
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="easeIn" checked>
-                            ol.easing.easeIn
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="easeOut">
-                            ol.easing.easeOut
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="inAndOut">
-                            ol.easing.inAndOut
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="elastic">
-                            ol.easing.elastic
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="linear">
-                            ol.easing.linear
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="bounce">
-                            ol.easing.bounce
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tweenGroup" value="upAndDown">
-                            ol.easing.upAndDown
-                        </label>
-                    </div>
-                </div>
-            </div>
+            Opacity: <input style='width: 80%;' class='opacity' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.01' data-slider-tooltip='hide'>
 
             <div id="map" class="map"></div>
 
@@ -201,6 +120,7 @@
         </script>
 
         <script id="code">
+            // Create map
             var map = new ol.Map({
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
@@ -212,58 +132,34 @@
                 ],
                 // Create a view centered on the specified location and zoom level
                 view: new ol.View({
-                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 6
+                    center: ol.proj.transform([-74.15655, 40.74222], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 12
+                })
+            }); 
+
+            // Create an image layer
+            var imageLayer = new ol.layer.Image({
+                opacity: 0.75,
+                source: new ol.source.ImageStatic({
+                    attributions: [
+                        new ol.Attribution({
+                            html: '&copy; <a href="https://www.lib.utexas.edu/maps/historical/">University of Texas Libraries</a>'
+                        })
+                    ],
+                    url: 'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+                    imageSize: [691, 541],
+                    projection: map.getView().getProjection(),
+                    imageExtent: ol.extent.applyTransform([-74.22655, 40.71222, -74.12544, 40.77394], ol.proj.getTransform("EPSG:4326", "EPSG:3857"))
                 })
             });
 
-            /**
-             * Creates the appropriate animation given the specified animation 
-             * and tween functions.
-             */
-            function createAnimation(animationFunction, tweenFunction) {
-                var params = {
-                    easing: eval(tweenFunction)
-                };
+            map.addLayer(imageLayer);
 
-                if (animationFunction === ol.animation.pan) {
-                    params.source = map.getView().getCenter();
-                } else if (animationFunction === ol.animation.rotate) {
-                    params.rotation = map.getView().getRotation();
-                } else if (animationFunction === ol.animation.bounce) {
-                    params.resolution = map.getView().getResolution() * 2;
-                } else {
-                    params.resolution = map.getView().getResolution();
-                }
-
-                return animationFunction(params);
-            }
-
-            /**
-             * Register a listener for a singleclick event on the map.
-             */
-            map.on('singleclick', function(event) {
-                var animationFunction = ol.animation[ $("#animation input:checked").val() ];
-                var tweenFunction = ol.easing[ $("#tween input:checked").val() ];
-
-                var animation = createAnimation(animationFunction, tweenFunction);
-
-                // Add animation to the render pipeline
-                map.beforeRender(animation);
-
-                // Modify the view
-                if (animationFunction === ol.animation.pan) {
-                    // Change center location
-                    map.getView().setCenter(event.coordinate);
-                } else if (animationFunction === ol.animation.rotate) {
-                    // Increase rotation angle 10 degrees
-                    map.getView().setRotation(map.getView().getRotation() + 10 * Math.PI / 180);
-                } else if (animationFunction === ol.animation.bounce) {
-                    map.getView().setCenter(map.getView().getCenter());
-                } else {
-                    // Change zooom
-                    map.getView().setResolution(map.getView().getResolution() / 2);
-                }
+            // Change layer opacity
+            $('input.opacity').slider({
+                value: imageLayer.getOpacity()
+            }).on('slide', function(ev) {
+                imageLayer.setOpacity(ev.value);
             });
         </script>
 

@@ -1,4 +1,6 @@
 .DS_Store
+app/index.html
+app/chapter*.html
 node_modules
 dist
 .tmp
