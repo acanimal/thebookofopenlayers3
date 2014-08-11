@@ -14,11 +14,10 @@
 
             <h2>Moving around</h2>
 
-            <p>Demonstrates how we can programmatically modify the view properties to change center location, rotation or zoom level.</p>
+            <p>Demonstrates how we can programmatically modify the view properties to change center location, rotation or zoom level:</p>
 
             <div class="row">
-                <div class="col-md-3">
-                    Change center lon/lat:
+                <div class="col-md-4">
                     <form role="form">
                         <div class="form-group">
                             <label for="lat">Latitude:</label>
@@ -32,11 +31,8 @@
                         <button type="button" class="btn btn-primary btn-xs" id="changeCenter">Change</button>
                     </form>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    Change rotation angle:
+                <div class="col-md-4">
                     <form role="form">
                         <div class="form-group">
                             <label for="angle">Degrees:</label>
@@ -47,11 +43,8 @@
                         <button type="button" class="btn btn-primary btn-xs" id="changeRotation">Change</button>
                     </form>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    Change zoom:
+            
+                <div class="col-md-4">
                     <form role="form">
                         <div class="form-group">
                             <label for="level">Level:</label>
@@ -76,22 +69,17 @@
 
         include "ganalytics.html"
 
-        <script id="code">
-            /** 
-             * Create a map using a 2D view with a tile layer retrieving tiles from 
-             * OpenStreetMap project
-             */
+        <script id="code">            
             var map = new ol.Map({
-                // The DOM element that will contains the map
-                target: 'map',
-                // The initial set of layers
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
                 layers: [
                     // Add a new Tile layer getting tiles from OpenStreetMap source
                     new ol.layer.Tile({
                         source: new ol.source.OSM()
                     })
                 ],
-                // The view to be used to show the map is a 2D
+                // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 6
@@ -100,6 +88,8 @@
 
             $(document).ready(function() {
 
+                // Once the document is ready retrieve the initial map view center
+                // location and set in the input fields.
                 var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
 
                 $('#lon').val(center[0]);
@@ -107,6 +97,8 @@
                 $('#angle').val(map.getView().getRotation());
                 $('#level').val(map.getView().getZoom());
 
+                // For each button click retrieve the values and apply on the
+                // map view.
                 $('#changeCenter').on('click', function() {
                     var center = [parseInt($('#lon').val()), parseInt($('#lat').val())];
                     map.getView().setCenter(ol.proj.transform(center, 'EPSG:4326', 'EPSG:3857'));

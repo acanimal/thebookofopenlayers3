@@ -50,9 +50,7 @@
                         </label>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
                 <div class="col-md-6" id="tween">
                     <h5>Tween:</h5>
 
@@ -115,21 +113,16 @@
         include "ganalytics.html"
 
         <script id="code">
-            /**
-             * Create a map using a 2D view with a tile layer retrieving tiles from 
-             * OpenStreetMap project
-             */
             var map = new ol.Map({
-                // The DOM element that will contains the map
-                target: 'map',
-                // The initial set of layers
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
                 layers: [
                     // Add a new Tile layer getting tiles from OpenStreetMap source
                     new ol.layer.Tile({
                         source: new ol.source.OSM()
                     })
                 ],
-                // The view to be used to show the map is a 2D
+                // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 6
@@ -173,7 +166,7 @@
                 // Modify the view
                 if (animationFunction === ol.animation.pan) {
                     // Change center location
-                    map.getView().setCenter(event.getCoordinate());
+                    map.getView().setCenter(event.coordinate);
                 } else if (animationFunction === ol.animation.rotate) {
                     // Increase rotation angle 10 degrees
                     map.getView().setRotation(map.getView().getRotation() + 10 * Math.PI / 180);

@@ -64,9 +64,27 @@
                 </div>
             </div>
 
-            <h2>Basic map</h2>
+            <h2>Adding and removing layers</h2>
 
-            <p>This sample shows how to create a very basic map with only one raster layer from the OpenStreetMap project.</p>
+            <p>Show how we can programmatically add and remove layer to/from the map.</p>
+
+            The map has been initialized without layers. You can add or remove any of the below layers.<br/>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-md-2 example">
+                    OpenStreetMap<br/>
+                    <button id="addOSM" class="btn btn-primary btn-xs">Add</button>
+                    <button id="removeOSM" class="btn btn-danger btn-xs">Remove</button>
+                </div>
+
+                <div class="col-md-2 example">
+                    MapQuest<br/>
+                    <button id="addMQ" class="btn btn-primary btn-xs">Add</button>
+                    <button id="removeMQ" class="btn btn-danger btn-xs">Remove</button>
+                </div>
+            </div>
 
             <div id="map" class="map"></div>
 
@@ -115,21 +133,44 @@
         </script>
 
         <script id="code">
+            // Create map instance
             var map = new ol.Map({
-                target: 'map',  // The DOM element that will contains the map
-                renderer: 'canvas', // Force the renderer to be used
-                layers: [
-                    // Add a new Tile layer getting tiles from OpenStreetMap source
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                // Create a view centered on the specified location and zoom level
+                // The DOM element that will contains the map
+                target: 'map',
+                // Empty set of layers
+                layers: [],
+                // The view to be used to show the map is a 2D
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 6
+                    zoom: 4
                 })
             });
+
+            // Create two layers but let user add them to the map
+            var layerOSM = new ol.layer.Tile({
+                source: new ol.source.OSM()
+            });
+
+            var layerMQ = new ol.layer.Tile({
+                source: new ol.source.MapQuest({
+                    layer: 'osm'
+                })
+            });
+
+            $(document).ready(function() {
+                $('#addOSM').on('click', function() {
+                    map.addLayer(layerOSM);
+                });
+                $('#removeOSM').on('click', function() {
+                    map.removeLayer(layerOSM);
+                });
+                $('#addMQ').on('click', function() {
+                    map.addLayer(layerMQ);
+                });
+                $('#removeMQ').on('click', function() {
+                    map.removeLayer(layerMQ);
+                });
+            }); 
         </script>
 
         <script>

@@ -11,18 +11,20 @@
             {
                 "title": "Moving around",
                 "description": "Demonstrates how to programatically interact with the map",
-                "url": "samples/3020_moving_around.html",
-                "thumbnail": false
+                "url": "chapter01_02_moving_around.html",
+                "thumbnail": "chapter01_02_moving_around.png"
             },
             {
                 "title": "Fit extent",
                 "description": "Focalize the view on a given extent",
-                "url": "samples/3021_fit_extent.html"
+                "url": "chapter01_03_fit_extent.html",
+                "thumbnail": "chapter01_03_fit_extent.png"
             },
             {
                 "title": "Animating the view",
                 "description": "Adding nice effect to the view changes",
-                "url": "samples/3030_animations.html"
+                "url": "chapter01_04_animating_the_view.html",
+                "thumbnail": "chapter01_04_animating_the_view.png"
             }            
         ]
     },

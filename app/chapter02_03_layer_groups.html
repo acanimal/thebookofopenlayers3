@@ -1,0 +1,387 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>The Book of OpenLayers3 - Code samples</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/highlightjs/styles/monokai.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- bootswatch yeti theme -->
+        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet">
+
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+
+        <!-- OpenLayers -->
+        <link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
+
+        <style>
+            .map, .code {
+                height: 500px;
+                margin: 5px auto;
+            }
+            .map {
+                box-shadow: 5px 5px 5px #888;
+            }
+            .code {
+                overflow: auto;
+            }
+            #mapTab {
+                padding-top: 10px;
+            }
+
+            ul.layerstack {
+                list-style: none;
+            }
+
+            ul.layerstack li {
+                border-bottom: 1px solid #ccc;
+                padding: 3px;
+            }
+            ul.layerstack li:hover {
+                background-color: #eee;
+            }
+            ul.layerstack li.selected {
+                background-color: #ddd;
+            }
+        </style>
+        <!-- CSS and JS code for the tree extracted from http://stackoverflow.com/questions/11167628/trees-in-twitter-bootstrap -->
+        <style>
+            .tree {
+                min-height:20px;
+                /*max-height: 150px;*/
+                overflow: auto;
+                padding: 3px;
+                margin-bottom:5px;
+                -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+                -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+                box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+            }
+            .tree li {
+                list-style-type:none;
+                margin:0;
+                padding:10px 5px 10px 5px;
+                position:relative;
+                /*                -moz-border-radius:5px;
+                                -webkit-border-radius:5px;
+                                border:1px solid #999;
+                                border-radius:5px;*/
+            }
+            .tree li::before, .tree li::after {
+                content:'';
+                left:-20px;
+                position:absolute;
+                right:auto
+            }
+            .tree li::before {
+                border-left:1px solid #999;
+                bottom:50px;
+                height:100%;
+                top:0;
+                width:1px
+            }
+            .tree li::after {
+                border-top:1px solid #999;
+                height:20px;
+                top:25px;
+                width:25px
+            }
+            .tree li span {
+                display:inline-block;
+                padding:3px 8px;
+                text-decoration:none
+            }
+            .tree li.parent_li>span {
+                cursor:pointer
+            }
+            .tree>ul>li::before, .tree>ul>li::after {
+                border:0
+            }
+            .tree li:last-child::before {
+                height:30px
+            }
+            .tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+                background:#eee;
+                border:1px solid #94a0b4;
+                color:#000;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                border-radius:5px;
+            }
+        </style>
+        <!-- Slider control from http://www.eyecon.ro/bootstrap-slider/ -->
+        <link rel="stylesheet" href="utils/slider/css/slider.css" type="text/css">
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            <div class="header">
+                <h1>The Book of OpenLayers3 <span class="text-muted">[Code samples]</span></h1>
+
+                <p>These are the code samples for <a href="https://leanpub.com/thebookofopenlayers3">The Book of OpenLayer3</a>. Feel free to download the <a href="https://github.com/acanimal/thebookofopenlayers3">source code</a> and contribute to this <a href="https://github.com/acanimal/thebookofopenlayers3">repository</a>:</p>
+
+                <div>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=acanimal&repo=thebookofopenlayers3&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+
+                    <iframe src="http://ghbtns.com/github-btn.html?user=acanimal&repo=thebookofopenlayers3&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    
+                    <iframe src="http://ghbtns.com/github-btn.html?user=acanimal&type=follow&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="130" height="20"></iframe>
+                    
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="thebookofopenlayers3">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                    <a href="https://twitter.com/acanimal" class="twitter-follow-button" data-show-count="false">Follow @acanimal</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                    <!-- Place this tag where you want the share button to render. -->
+                    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+
+                    <!-- Place this tag after the last share tag. -->
+                    <script type="text/javascript">
+                      (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/platform.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                      })();
+                    </script>
+                </div>
+            </div>
+
+            <h2>Layer groups</h2>
+
+            <p>This sample shows how to create a very basic map with only one raster layer from the OpenStreetMap project.</p>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div id="layertree" class="tree"></div>
+                </div>
+
+                <div class="col-md-8">
+                    <div id="map" class="map"></div>
+                </div>
+
+            </div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            <div class="footer">
+                <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a>. Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            </div>
+
+        </div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="../bower_components/bootstrap/js/affix.js"></script>
+        <script src="../bower_components/bootstrap/js/alert.js"></script>
+        <script src="../bower_components/bootstrap/js/dropdown.js"></script>
+        <script src="../bower_components/bootstrap/js/tooltip.js"></script>
+        <script src="../bower_components/bootstrap/js/modal.js"></script>
+        <script src="../bower_components/bootstrap/js/transition.js"></script>
+        <script src="../bower_components/bootstrap/js/button.js"></script>
+        <script src="../bower_components/bootstrap/js/popover.js"></script>
+        <script src="../bower_components/bootstrap/js/carousel.js"></script>
+        <script src="../bower_components/bootstrap/js/scrollspy.js"></script>
+        <script src="../bower_components/bootstrap/js/collapse.js"></script>
+        <script src="../bower_components/bootstrap/js/tab.js"></script>
+        <!-- endbuild -->
+
+        <!-- OpenLayers -->
+        <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <script id="code">
+            // Create layers instances
+            var layerOSM = new ol.layer.Tile({
+                source: new ol.source.OSM(),
+                name: 'OpenStreetMap'
+            });
+
+            var layerMQ = new ol.layer.Tile({
+                source: new ol.source.MapQuest({
+                    layer: 'osm'
+                }),
+                name: 'MapQuest'
+            });
+            var layerStamenWater = new ol.layer.Tile({
+                source: new ol.source.Stamen({
+                    layer: 'watercolor'
+                }),
+                name: 'Watercolor'
+            });
+            var layerStamenTerrain = new ol.layer.Tile({
+                source: new ol.source.Stamen({
+                    layer: 'terrain'
+                }),
+                name: 'Terrain'
+            });
+            var layerStm = new ol.layer.Group({
+                layers: [layerStamenWater, layerStamenTerrain],
+                name: 'Stamen Group'
+            });
+
+            // Create map
+            var map = new ol.Map({
+                // The DOM element that will contains the map
+                target: 'map',
+                // Set of layers
+                layers: [layerOSM, layerMQ, layerStm],
+                // The view to be used to show the map is a 2D
+                view: new ol.View({
+                    center: ol.proj.transform([-100.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 4
+                })
+            });
+            // Name the root layer group
+            map.getLayerGroup().set('name', 'Root');
+
+
+            /**
+             * Build a tree layer from the map layers with visible and opacity 
+             * options.
+             * 
+             * @param {type} layer
+             * @returns {String}
+             */
+            function buildLayerTree(layer) {
+                var elem;
+                var name = layer.get('name') ? layer.get('name') : "Group";
+                var div = "<li data-layerid='" + name + "'>" +
+                        "<span><i class='glyphicon glyphicon-file'></i> " + layer.get('name') + "</span>" +
+                        "<i class='glyphicon glyphicon-check'></i> " +
+                        "<input style='width:80px;' class='opacity' type='text' value='' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-tooltip='hide'>";
+                if (layer.getLayers) {
+                    var sublayersElem = ''; 
+                    var layers = layer.getLayers().getArray(),
+                            len = layers.length;
+                    for (var i = len - 1; i >= 0; i--) {
+                        sublayersElem += buildLayerTree(layers[i]);
+                    }
+                    elem = div + " <ul>" + sublayersElem + "</ul></li>";
+                } else {
+                    elem = div + " </li>";
+                }
+                return elem;
+            }
+
+            /**
+             * Initialize the tree from the map layers
+             * @returns {undefined}
+             */
+            function initializeTree() {
+
+                var elem = buildLayerTree(map.getLayerGroup());
+                $('#layertree').empty().append(elem);
+
+                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+                $('.tree li.parent_li > span').on('click', function(e) {
+                    var children = $(this).parent('li.parent_li').find(' > ul > li');
+                    if (children.is(":visible")) {
+                        children.hide('fast');
+                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus').removeClass('glyphicon-minus');
+                    } else {
+                        children.show('fast');
+                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-minus').removeClass('glyphicon-plus');
+                    }
+                    e.stopPropagation();
+                });
+            }
+
+            /**
+             * Finds recursively the layer with the specified key and value.
+             * @param {ol.layer.Base} layer
+             * @param {String} key
+             * @param {any} value
+             * @returns {ol.layer.Base}
+             */
+            function findBy(layer, key, value) {
+
+                if (layer.get(key) === value) {
+                    return layer;
+                }
+
+                // Find recursively if it is a group
+                if (layer.getLayers) {
+                    var layers = layer.getLayers().getArray(),
+                            len = layers.length, result;
+                    for (var i = 0; i < len; i++) {
+                        result = findBy(layers[i], key, value);
+                        if (result) {
+                            return result;
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+
+            $(document).ready(function() {
+
+                initializeTree();
+
+                // Handle opacity slider control
+                $('input.opacity').slider().on('slide', function(ev) {
+                    var layername = $(this).closest('li').data('layerid');
+                    var layer = findBy(map.getLayerGroup(), 'name', layername);
+
+                    layer.setOpacity(ev.value);
+                });
+
+                // Handle visibility control
+                $('i').on('click', function() {
+                    var layername = $(this).closest('li').data('layerid');
+                    var layer = findBy(map.getLayerGroup(), 'name', layername);
+
+                    layer.setVisible(!layer.getVisible());
+
+                    if (layer.getVisible()) {
+                        $(this).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                    } else {
+                        $(this).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                    }
+                });
+
+            });
+        </script>
+
+        <script>
+        	(function() {
+        		$('#code_text').text( $('#code').text() );
+            	hljs.initHighlightingOnLoad();
+        	})();
+        </script>
+
+    </body>
+</html>
