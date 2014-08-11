@@ -2,6 +2,26 @@
 <html class="no-js">
     <head>
         include "head.html"
+        
+        <style>
+            ul.layerstack {
+                list-style: none;
+            }
+            ul.layerstack li {
+                border-bottom: 1px solid #ccc;
+                padding: 3px;
+            }
+            ul.layerstack li:hover {
+                background-color: #eee;
+            }
+            ul.layerstack li.selected {
+                background-color: #ddd;
+            }
+            .controls {
+                float: left;
+                margin-right: 5px;
+            }
+        </style>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -72,11 +92,12 @@
 
             // Create map
             var map = new ol.Map({
-                // The DOM element that will contains the map
-                target: 'map',
-                // Set of layers
-                layers: [layerOSM, layerMQ, layerStamenWater, layerStamenTerrain],
-                // The view to be used to show the map is a 2D
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [   // Add the set of layers
+                    layerOSM, layerMQ, layerStamenWater, layerStamenTerrain
+                ],
+                // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([-100.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 4
@@ -90,7 +111,7 @@
                 var layers = map.getLayers();
                 var length = layers.getLength(), l;
                 for (var i = 0; i < length; i++) {
-                    l = layers.getAt(i);
+                    l = layers.item(i);
                     $('ul.layerstack').prepend('<li data-layerid="' + l.get('name') + '">' + l.get('name') + '</li>');
                 }
 
@@ -110,7 +131,7 @@
             function indexOf(layers, layer) {
                 var length = layers.getLength();
                 for (var i = 0; i < length; i++) {
-                    if (layer === layers.getAt(i)) {
+                    if (layer === layers.item(i)) {
                         return i;
                     }
                 }
@@ -125,8 +146,8 @@
                 var layers = map.getLayers();
                 var length = layers.getLength();
                 for (var i = 0; i < length; i++) {
-                    if (name === layers.getAt(i).get('name')) {
-                        return layers.getAt(i);
+                    if (name === layers.item(i).get('name')) {
+                        return layers.item(i);
                     }
                 }
                 return null;
@@ -141,7 +162,7 @@
                 var layers = map.getLayers();
                 var index = indexOf(layers, layer);
                 if (index < layers.getLength() - 1) {
-                    var next = layers.getAt(index + 1);
+                    var next = layers.item(index + 1);
                     layers.setAt(index + 1, layer);
                     layers.setAt(index, next);
                     
@@ -160,7 +181,7 @@
                 var layers = map.getLayers();
                 var index = indexOf(layers, layer);
                 if (index > 0) {
-                    var prev = layers.getAt(index - 1);
+                    var prev = layers.item(index - 1);
                     layers.setAt(index - 1, layer);
                     layers.setAt(index, prev);
 
@@ -169,7 +190,6 @@
                     elem.next().after(elem);
                 }
             }
-
 
             $(document).ready(function() {
 
