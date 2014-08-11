@@ -64,7 +64,8 @@
             {
                 "title": "Heatmap Layers",
                 "description": "Create hetmap from vector data",
-                "url": "samples/4060_heatmap_layer.html"
+                "url": "chapter02_06_heatmap_layer.html",
+                "thumbnail": "chapter02_06_heatmap_layer.png"
             }
         ]
     },

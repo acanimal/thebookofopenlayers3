@@ -12,11 +12,9 @@
 
             include "header.html"
 
-            <h2>Layer resolution</h2>
+            <h2>Heatmap layer</h2>
 
-            <p>Here we show how we can force to show or hide a layer playing with its <code>minResolution</code> and <code>maxResolution</code> properties.</p>
-
-            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the view <code>resolution</code> when the zoom changes.</div>
+            <p>Sample using a heatmap layer.</p>
 
             <div id="map" class="map"></div>
 
@@ -32,32 +30,30 @@
         include "ganalytics.html"
 
         <script id="code">
-            var map = new ol.Map({ 
+            // Create a heatmap layer based on GeoJSON content
+            var heatmapLayer = new ol.layer.Heatmap({
+                source: new ol.source.GeoJSON({
+                    url: './data/world_cities.json',
+                    projection: 'EPSG:3857'
+                }),
+                opacity: 0.9
+            });
+
+            // Create a tile layer from OSM
+            var osmLayer = new ol.layer.Tile({
+                source: new ol.source.OSM()
+            });
+
+            // Create the map with the previous layers
+            var map = new ol.Map({
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
-                layers: [
-                    // Add to tile layers specifying its min and max resolution property
-                    new ol.layer.Tile({
-                        source: new ol.source.MapQuest({
-                            layer: 'sat'
-                        }),
-                        minResolution: 2500,
-                    }),
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM(),
-                        maxResolution: 2500
-                    })
-                ],
+                layers: [osmLayer, heatmapLayer],
                 // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 6
+                    zoom: 4
                 })
-            });
-
-            var view = map.getView();
-            view.on('change:resolution', function(evt) {
-                console.log("resolution", view.getResolution());
             });
         </script>
 
