@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
+<WMS_Capabilities version="1.3.0" xmlns="http://www.opengis.net/wms"
+  xmlns:srv="http://schemas.opengis.net/iso/19139/20060504/srv/srv.xsd" 
+  xmlns:gmd="http://schemas.opengis.net/iso/19139/20060504/gmd/gmd.xsd" 
+  xmlns:gco="http://schemas.opengis.net/iso/19139/20060504/gco/gco.xsd" 
+  xmlns:inspire_vs="http://inspire.ec.europa.eu/schemas/inspire_vs/1.0" 
+  xmlns:gml="http://schemas.opengis.net/gml" 
+  xmlns:inspire_common="http://inspire.ec.europa.eu/schemas/common/1.0"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wms  http://www.idee.es/Server-MTN/capabilities_1_3_0.xsd  http://inspire.ec.europa.eu/schemas/inspire_vs/1.0  http://inspire.ec.europa.eu/schemas/inspire_vs/1.0/inspire_vs.xsd">
+	<Service>
+		<Name>WMS</Name>
+		<Title>Cartografía raster (IGN)</Title>
+		<Abstract>Servicio de visualización WMS 1.3.0 conforme a ISO 19128:2005 Geographic Information - Web Map Server Interface que permite visualizar la cartografía raster del Instituto Geográfico Nacional correspondiente al Mapa de España a escala 1:2 000 000 hasta una resolución de 306 m/px. El Mapa de España a escala 1:1 250 000 hasta una resolución de 100 m/px. El Mapa de España a escala 1:500 000 hasta una resolución de 38 m/px. El Mapa Provincial a escala 1:200 000 hasta una resolución de 19 m/px. El Mapa Topográfico Nacional a escala 1:50 000 hasta una resolución de 5 m/px y el Mapa Topográfico Nacional a escala 1:25 000 a partir de una resolución de 5 m/px. Se considera un tamaño normalizado de píxel de 0.28 mm. El tamaño en píxeles permitido para las imágenes solicitadas está comprendido entre los valores: ancho (10 – 2 048) y alto (10 – 2 048). Este servicio soporta los datum ETRS89, WGS84 y ED50, en coordenadas geográficas y en coordenadas UTM. Los datum ETRS89 y ED50 son válidos para la zona de la Península y Baleares pero no para Canarias. El acceso o conexión a este servicio para obtener las funcionalidades para las que está pensado es gratuito en cualquier caso, siempre que se mencione la autoría del IGN como propietario del servicio y de su contenido (que puede almacenarse para uso particular) del siguiente modo: «© Instituto Geográfico Nacional de España»</Abstract>
+		<KeywordList>
+<Keyword>WMS</Keyword>
+<Keyword>Cartografía</Keyword>
+<Keyword>Mapa</Keyword>
+<Keyword>raster</Keyword>
+<Keyword>MTN</Keyword>
+<Keyword vocabulary="ISO 19119 geographic services taxonomy, version 2.3">infoMapAccessService</Keyword>
+<Keyword vocabulary="ISO 19119 geographic services taxonomy, version 2.3">infoManagementService</Keyword>
+<Keyword>Spain</Keyword>
+<Keyword>España</Keyword>
+<Keyword>IGN</Keyword>
+<Keyword>View</Keyword>
+<Keyword>WMS 1.3.0</Keyword>
+<Keyword>OGC</Keyword>
+		</KeywordList>
+		<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es"></OnlineResource>
+		<ContactInformation>
+<ContactPersonPrimary>
+	<ContactPerson />
+	<ContactOrganization>Instituto Geográfico Nacional</ContactOrganization>
+</ContactPersonPrimary>
+<ContactPosition>pointOfContact</ContactPosition>
+<ContactElectronicMailAddress>ign@fomento.es</ContactElectronicMailAddress>
+		</ContactInformation>
+		<Fees>no conditions apply</Fees>
+		<AccessConstraints>OtherConstraints. Se permite el acceso a este servicio en cualquier caso siempre que se mencione la autoría del IGN como propietario del servicio y de su contenido (que puede almacenarse para uso particular) del siguiente modo: «© Instituto Geográfico Nacional de España»</AccessConstraints>
+		<MaxWidth>2048</MaxWidth>
+		<MaxHeight>2048</MaxHeight>
+	</Service>
+	<Capability>
+		<Request>
+			<GetCapabilities>
+				<Format>text/xml</Format>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+							xlink:type="simple"
+							xlink:href="http://www.ign.es/wms-inspire/mapa-raster?"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetCapabilities>
+			<GetMap>
+				<Format>image/png</Format>
+				<Format>image/jpeg</Format>
+				<Format>image/gif</Format>
+				<Format>image/bmp</Format>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+							xlink:type="simple"
+							xlink:href="http://www.ign.es/wms-inspire/mapa-raster?"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetMap>
+		</Request>
+		<Exception>
+			<Format>XML</Format>
+			<Format>INIMAGE</Format>
+			<Format>BLANK</Format>
+		</Exception>
+		<inspire_vs:ExtendedCapabilities>
+			<inspire_common:MetadataUrl xsi:type="inspire_common:resourceLocatorType">
+				<inspire_common:URL>http://www.ign.es/csw-inspire/srv/spa/csw?SERVICE=CSW&amp;VERSION=2.0.2&amp;REQUEST=GetRecordById&amp;outputSchema=http://www.isotc211.org/2005/gmd&amp;ElementSetName=full&amp;ID=spaignwms_mtn-raster_2013</inspire_common:URL>
+				<inspire_common:MediaType>application/vnd.ogc.csw.GetRecordByIdResponse_xml</inspire_common:MediaType>
+			</inspire_common:MetadataUrl>
+			<inspire_common:SupportedLanguages xsi:type="inspire_common:supportedLanguagesType">
+					<inspire_common:DefaultLanguage>
+						<inspire_common:Language>spa</inspire_common:Language>
+					</inspire_common:DefaultLanguage>
+					<inspire_common:SupportedLanguage>
+				</inspire_common:SupportedLanguage>
+			</inspire_common:SupportedLanguages>
+			<inspire_common:ResponseLanguage>
+				<inspire_common:Language>spa</inspire_common:Language>
+			</inspire_common:ResponseLanguage>
+		</inspire_vs:ExtendedCapabilities>
+		<Layer>
+			<Title>Cartografía raster (IGN)</Title>
+			<Abstract>Servicio de visualización WMS 1.3.0 conforme a ISO 19128:2005 Geographic Information - Web Map Server Interface que permite visualizar la cartografía raster del Instituto Geográfico Nacional correspondiente al Mapa de España a escala 1:2 000 000 hasta una resolución de 306 m/px. El Mapa de España a escala 1:1 250 000 hasta una resolución de 100 m/px. El Mapa de España a escala 1:500 000 hasta una resolución de 38 m/px. El Mapa Provincial a escala 1:200 000 hasta una resolución de 19 m/px. El Mapa Topográfico Nacional a escala 1:50 000 hasta una resolución de 5 m/px y el Mapa Topográfico Nacional a escala 1:25 000 a partir de una resolución de 5 m/px. Se considera un tamaño normalizado de píxel de 0.28 mm. El tamaño en píxeles permitido para las imágenes solicitadas está comprendido entre los valores: ancho (10 – 2 048) y alto (10 – 2 048). Este servicio soporta los datum ETRS89, WGS84 y ED50, en coordenadas geográficas y en coordenadas UTM. Los datum ETRS89 y ED50 son válidos para la zona de la Península y Baleares pero no para Canarias. El acceso o conexión a este servicio para obtener las funcionalidades para las que está pensado es gratuito en cualquier caso, siempre que se mencione la autoría del IGN como propietario del servicio y de su contenido (que puede almacenarse para uso particular) del siguiente modo: «© Instituto Geográfico Nacional de España»</Abstract>
+			<CRS>EPSG:25830</CRS>
+			<CRS>EPSG:4230</CRS>
+			<CRS>EPSG:4258</CRS>
+			<CRS>EPSG:4326</CRS>
+			<CRS>EPSG:23029</CRS>
+			<CRS>EPSG:23030</CRS>
+			<CRS>EPSG:23031</CRS>
+			<CRS>EPSG:25828</CRS>
+			<CRS>EPSG:25829</CRS>
+			<CRS>EPSG:25831</CRS>
+			<CRS>EPSG:32628</CRS>
+			<CRS>EPSG:32629</CRS>
+			<CRS>EPSG:32630</CRS>
+			<CRS>EPSG:32631</CRS>
+			<CRS>EPSG:3857</CRS>
+			<CRS>CRS:84</CRS>
+			<EX_GeographicBoundingBox>
+				<westBoundLongitude>-46.4704299</westBoundLongitude>
+				<eastBoundLongitude>40.73650083</eastBoundLongitude>
+				<southBoundLatitude>22.50854001</southBoundLatitude>
+				<northBoundLatitude>66.6278622</northBoundLatitude>
+			</EX_GeographicBoundingBox>
+			<BoundingBox CRS="EPSG:25830" minx="-4292153.24" miny="2489123.04" maxx="5325632.08" maxy="8062920.71"/>
+			<BoundingBox CRS="EPSG:4230" minx="22.50968265" miny="-46.46916081" maxx="66.62898225" maxy="40.73689548"/>
+			<BoundingBox CRS="EPSG:4258" minx="22.50853992" miny="-46.4704299" maxx="66.6278622" maxy="40.73650083"/>
+			<BoundingBox CRS="EPSG:4326" minx="22.50854001" miny="-46.4704299" maxx="66.6278622" maxy="40.73650083"/>
+			<BoundingBox CRS="EPSG:23029" minx="-3557086.13" miny="2489301.63" maxx="6103095.38" maxy="8256751.39"/>
+			<BoundingBox CRS="EPSG:23030" minx="-4292122.18" miny="2489300.28" maxx="5325806.75" maxy="8063152.5"/>
+			<BoundingBox CRS="EPSG:23031" minx="-5067450.98" miny="2489335.32" maxx="4589109.78" maxy="8247673.89"/>
+			<BoundingBox CRS="EPSG:25828" minx="-2855871.44" miny="2489153.27" maxx="6927534.62" maxy="8471735.8"/>
+			<BoundingBox CRS="EPSG:25829" minx="-3557125.15" miny="2489120.13" maxx="6102898.99" maxy="8256507.85"/>
+			<BoundingBox CRS="EPSG:25831" minx="-5067477.85" miny="2489162.01" maxx="4588957.42" maxy="8247451.91"/>
+			<BoundingBox CRS="EPSG:32628" minx="-2855871.44" miny="2489153.27" maxx="6927534.62" maxy="8471735.8"/>
+			<BoundingBox CRS="EPSG:32629" minx="-3557125.15" miny="2489120.13" maxx="6102898.99" maxy="8256507.85"/>
+			<BoundingBox CRS="EPSG:32630" minx="-4292153.24" miny="2489123.04" maxx="5325632.08" maxy="8062920.71"/>
+			<BoundingBox CRS="EPSG:32631" minx="-5067477.85" miny="2489162.01" maxx="4588957.42" maxy="8247451.91"/>
+			<BoundingBox CRS="EPSG:3857" minx="-5173064.59" miny="2572692.07" maxx="4534766.52" maxy="10050838.7"/>
+			<BoundingBox CRS="CRS:84" minx="-46.4704299" miny="22.50854001" maxx="40.73650083" maxy="66.6278622"/>
+<AuthorityURL name="IGN">
+	<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es" />
+</AuthorityURL>
+			<Layer queryable="0" opaque="1" >
+				<Name>mtn_rasterizado</Name>
+				<Title>Mapas raster (IGN)</Title>
+				<Abstract>Capa de cartografía raster del IGN. Datos mostrados en función de la escala de visualización: - Mapa 2M: hasta 306m/px. - Mapa 1M: hasta 100 m/px. - Mapa 500: hasta 38 m/px. - Mapa 200: hasta 19 m/px. - MTN50: hasta 5 m/px. - MTN25: desde 5 m/px</Abstract>
+				<KeywordList>
+<Keyword>Cartografía</Keyword>
+<Keyword>Mapa</Keyword>
+<Keyword>MTN</Keyword>
+<Keyword>España</Keyword>
+				</KeywordList>
+				<EX_GeographicBoundingBox>
+					<westBoundLongitude>-18.45276444</westBoundLongitude>
+					<eastBoundLongitude>5.43640194</eastBoundLongitude>
+					<southBoundLatitude>27.28548387</southBoundLatitude>
+					<northBoundLatitude>44.7602724</northBoundLatitude>
+				</EX_GeographicBoundingBox>
+				<BoundingBox CRS="EPSG:4326" minx="27.28548387" miny="-18.45276444" maxx="44.7602724" maxy="5.43640194"/>
+				<BoundingBox CRS="EPSG:25830" minx="-1030444.26" miny="3062770.35" maxx="1207486.71" maxy="4956705.34"/>
+				<BoundingBox CRS="EPSG:4230" minx="27.28548387" miny="-18.45276444" maxx="44.76134133" maxy="5.43752406"/>
+				<BoundingBox CRS="EPSG:4258" minx="27.28548387" miny="-18.45276444" maxx="44.76134133" maxy="5.43752406"/>
+				<BoundingBox CRS="EPSG:23029" minx="-429673.32" miny="3028216.74" maxx="1759456.76" maxy="5024520.39"/>
+				<BoundingBox CRS="EPSG:23030" minx="-1030509.43" miny="3062814.26" maxx="1207517.86" maxy="4956797.23"/>
+				<BoundingBox CRS="EPSG:23031" minx="-1641141.38" miny="3127787.92" maxx="693950.32" maxy="5024930.75"/>
+				<BoundingBox CRS="EPSG:25828" minx="165297.75" miny="3022493.42" maxx="2316236.87" maxy="5129532.66"/>
+				<BoundingBox CRS="EPSG:25829" minx="-429633.86" miny="3028174.31" maxx="1759401.21" maxy="5024424.83"/>
+				<BoundingBox CRS="EPSG:25831" minx="-1641049.88" miny="3127741.15" maxx="693941.33" maxy="5024835.16"/>
+				<BoundingBox CRS="EPSG:32628" minx="165297.74" miny="3022493.42" maxx="2316236.87" maxy="5129398.94"/>
+				<BoundingBox CRS="EPSG:32629" minx="-429633.86" miny="3028174.31" maxx="1759401.21" maxy="5024298.2"/>
+				<BoundingBox CRS="EPSG:32630" minx="-1030444.26" miny="3062770.35" maxx="1207486.71" maxy="4956585.68"/>
+				<BoundingBox CRS="EPSG:32631" minx="-1641049.88" miny="3127741.15" maxx="693855.35" maxy="5024724.02"/>
+				<BoundingBox CRS="EPSG:3857" minx="-2054152.34" miny="3159184.69" maxx="605177.5" maxy="5583859.91"/>
+			<BoundingBox CRS="CRS:84" minx="-18.45276444" miny="27.28548387" maxx="5.43640194" maxy="44.7602724"/>
+<Attribution>
+	<Title>© Instituto Geográfico Nacional de España</Title>
+	<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es" />
+</Attribution>
+<Identifier authority="IGN">Capa_cartografia_raster_WMS_IGN</Identifier>
+<MetadataURL type="ISO19115:2003">
+	<Format>text/plain</Format>
+	<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es/csw-inspire/srv/spa/csw?SERVICE=CSW&amp;VERSION=2.0.2&amp;REQUEST=GetRecordById&amp;outputSchema=http://www.isotc211.org/2005/gmd&amp;ElementSetName=full&amp;ID=spaigncapawmscartografiaraster20130415" />
+</MetadataURL>
+<Style>
+	<Name>Default</Name>
+	<Title>Estilo por defecto de visualización</Title>
+	<Abstract>Estilo por defecto de visualización</Abstract>
+	<LegendURL width="243" height="69">
+		<Format>image/png</Format>
+		<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es/Server-MTN/leyenda/mosaicoRaster.png" />
+	</LegendURL>
+</Style>
+			</Layer>
+			<Layer queryable="0" opaque="1" >
+				<Name>fondo</Name>
+				<Title>Fondo</Title>
+				<Abstract>Capa para usar como fondo</Abstract>
+				<KeywordList>
+<Keyword>Fondo</Keyword>
+<Keyword>España</Keyword>
+				</KeywordList>
+				<EX_GeographicBoundingBox>
+					<westBoundLongitude>-46.4704299</westBoundLongitude>
+					<eastBoundLongitude>40.73650083</eastBoundLongitude>
+					<southBoundLatitude>22.50854001</southBoundLatitude>
+					<northBoundLatitude>66.6278622</northBoundLatitude>
+				</EX_GeographicBoundingBox>
+				<BoundingBox CRS="EPSG:25830" minx="-2792062.89" miny="2853652.51" maxx="3654317.61" maxy="7390754.71"/>
+				<BoundingBox CRS="EPSG:4230" minx="22.50854001" miny="-46.4704299" maxx="66.6278622" maxy="40.73650083"/>
+				<BoundingBox CRS="EPSG:4258" minx="22.50854001" miny="-46.4704299" maxx="66.6278622" maxy="40.73650083"/>
+				<BoundingBox CRS="EPSG:4326" minx="22.50854001" miny="-46.4704299" maxx="66.6278622" maxy="40.73650083"/>
+				<BoundingBox CRS="EPSG:23029" minx="-2282564.79" miny="2717133.95" maxx="4344841.29" maxy="7592718.54"/>
+				<BoundingBox CRS="EPSG:23030" minx="-2791672.37" miny="2853684.61" maxx="3654095.4" maxy="7390943.6"/>
+				<BoundingBox CRS="EPSG:23031" minx="-3490109.74" miny="2723622.4" maxx="3164541.1" maxy="7593276.22"/>
+				<BoundingBox CRS="EPSG:25828" minx="-1818200.59" miny="2616743.04" maxx="5066838.34" maxy="7838731.21"/>
+				<BoundingBox CRS="EPSG:25829" minx="-2282434.94" miny="2717091.46" maxx="4344676.6" maxy="7592515.97"/>
+				<BoundingBox CRS="EPSG:25831" minx="-3489938.57" miny="2723580.41" maxx="3164416.46" maxy="7593073.15"/>
+				<BoundingBox CRS="EPSG:32628" minx="-1818200.59" miny="2616743.04" maxx="5066838.34" maxy="7838731.21"/>
+				<BoundingBox CRS="EPSG:32629" minx="-2282434.94" miny="2717091.46" maxx="4344676.6" maxy="7592515.97"/>
+				<BoundingBox CRS="EPSG:32630" minx="-2791532.63" miny="2853635.38" maxx="3653961.63" maxy="7390754.71"/>
+				<BoundingBox CRS="EPSG:32631" minx="-3489938.57" miny="2723580.41" maxx="3164416.46" maxy="7593073.15"/>
+				<BoundingBox CRS="EPSG:3857" minx="-5173064.59" miny="2572692.07" maxx="4534766.53" maxy="10050838.71"/>
+			<BoundingBox CRS="CRS:84" minx="-46.4704299" miny="22.50854001" maxx="40.73650083" maxy="66.6278622"/>
+<Attribution>
+	<Title>© Instituto Geográfico Nacional de España</Title>
+	<OnlineResource xlink:type="simple" xlink:href="http://www.ign.es" />
+</Attribution>
+<Identifier authority="IGN">MapaRaster_fondo</Identifier>
+<Style>
+	<Name>Default</Name>
+	<Title>Estilo por defecto de visualización</Title>
+	<Abstract>Estilo por defecto de visualización</Abstract>
+</Style>
+			</Layer>
+		</Layer>
+	</Capability>
+</WMS_Capabilities>

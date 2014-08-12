@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>WMS source</h2>
+
+            <p>This sample demonstrates two things: 1) how to read a WMS capabilities file and 2) how we can access a layer from a WMS server.</p>
+
+            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the parsed output from the WMS server capabilities. Note we read the capabilities from a local copy of the server capabilities to avoid cross domain problems.</div>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Load capabilties file using jQuery and parse using 
+            // the ol.format.WMSCapabilities format class.
+            $.get('data/MTN-Raster.xml')
+            .done(function(data) {
+                var capabilities = new ol.format.WMSCapabilities();
+                var result = capabilities.read(data);
+                console.log(result);
+            });
+
+            // Create a map with two layers
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    new ol.layer.Tile({
+                        source: new ol.source.TileWMS({
+                            url: 'http://www.idee.es/wms/MTN-Raster/MTN-Raster',
+                            params: {
+                                'LAYERS': 'mtn_rasterizado',
+                                'TRANSPARENT': 'true'
+                            }
+                        })
+                    })
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 6
+                })
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>

@@ -95,6 +95,12 @@
                 "description": "Rendering information on a HTML5 canvas element",
                 "url": "chapter03_04_imagecanvas.html",
                 "thumbnail": "chapter03_04_imagecanvas.png"
+            },
+            {
+                "title": "WMS source",
+                "description": "Accessing a WMS server",
+                "url": "chapter03_05_wmssource.html",
+                "thumbnail": "chapter03_05_wmssource.png"
             }
         ]
     }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<WMS_Capabilities version="1.3.0" xmlns="http://www.opengis.net/wms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:esri_wms="http://www.esri.com/wms" xsi:schemaLocation="http://www.opengis.net/wms http://schemas.opengis.net/wms/1.3.0/capabilities_1_3_0.xsd http://www.esri.com/wms http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?version=1.3.0%26service=WMS%26request=GetSchemaExtension">
+	<Service>
+		<Name>USGSShadedReliefOnly</Name>
+		<Title>USGS Shaded Relief Basemap - 18k and Smaller</Title>
+		<Abstract>The USGS Hill Shade base map from The National Map was created from the National Elevation Dataset (NED), a seamless dataset of best available raster elevation data for the conterminous United States, Alaska, Hawaii, and Territorial Islands. Derived from the NED using a hill-shade technique, this base map represents a continental view showing shaded relief from USGS NED layers at resolutions of 1/3-, 1-, and 2-arc-second (in Alaska only). Shaded relief (or hill shade) function parameters are: point illumination is from the NW (azimuth = 315 degrees), and altitude of the light source is 45 degrees. Color characteristics are the result of applying a color ramp in which RGB values range from white (RGB: 255, 255, 255) to brown (RGB: 166, 150, 109). The color ramp was applied with a Stretch Type of None. Contrast and Brightness values range from 4-14%, depending on scale, for cartographic purposes. For additional information on the NED, go to http://ned.usgs.gov. </Abstract>
+		<KeywordList><Keyword>USGS Shaded Relief Basemap Small Scale</Keyword></KeywordList>
+		<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?"/>
+		<ContactInformation>
+			<ContactPersonPrimary>
+				<ContactPerson></ContactPerson>
+				<ContactOrganization>U. S. Geological Survey - National Geospatial Program, USGSThe National Map</ContactOrganization>
+			</ContactPersonPrimary>
+			<ContactPosition></ContactPosition>
+			<ContactAddress>
+				<AddressType></AddressType>
+				<Address></Address>
+				<City></City>
+				<StateOrProvince></StateOrProvince>
+				<PostCode></PostCode>
+				<Country></Country>
+			</ContactAddress>
+			<ContactVoiceTelephone></ContactVoiceTelephone>
+			<ContactFacsimileTelephone></ContactFacsimileTelephone>
+			<ContactElectronicMailAddress></ContactElectronicMailAddress>
+		</ContactInformation>
+		<Fees></Fees>
+		<AccessConstraints></AccessConstraints>
+		<MaxWidth>2048</MaxWidth>
+		<MaxHeight>2048</MaxHeight>
+	</Service>
+	<Capability>
+		<Request>
+			<GetCapabilities>
+				<Format>application/vnd.ogc.wms_xml</Format>
+				<Format>text/xml</Format>
+				<DCPType>
+					<HTTP><Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?"/></Get></HTTP>
+				</DCPType>
+			</GetCapabilities>
+			<GetMap>
+				<Format>image/bmp</Format>
+				<Format>image/jpeg</Format>
+				<Format>image/tiff</Format>
+				<Format>image/png</Format>
+				<Format>image/png8</Format>
+				<Format>image/png24</Format>
+				<Format>image/png32</Format>
+				<Format>image/gif</Format>
+				<Format>image/svg+xml</Format>
+				<DCPType>
+					<HTTP><Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?"/></Get></HTTP>
+				</DCPType>
+			</GetMap>
+			<GetFeatureInfo>
+				<Format>application/vnd.esri.wms_raw_xml</Format>
+				<Format>application/vnd.esri.wms_featureinfo_xml</Format>
+				<Format>application/vnd.ogc.wms_xml</Format>
+				<Format>text/xml</Format>
+				<Format>text/html</Format>
+				<Format>text/plain</Format>
+				<DCPType>
+					<HTTP><Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?"/></Get></HTTP>
+				</DCPType>
+			</GetFeatureInfo>
+			<esri_wms:GetStyles>
+				<Format>application/vnd.ogc.sld+xml</Format>
+				<DCPType>
+					<HTTP><Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?"/></Get></HTTP>
+				</DCPType>
+			</esri_wms:GetStyles>
+		</Request>
+		<Exception>
+			<Format>application/vnd.ogc.se_xml</Format>
+			<Format>application/vnd.ogc.se_inimage</Format>
+			<Format>application/vnd.ogc.se_blank</Format>
+			<Format>text/xml</Format>
+			<Format>XML</Format>
+		</Exception>
+		<Layer>
+			<Title>Layers</Title>
+			<SRS>EPSG:4326</SRS>
+			<SRS>EPSG:3857</SRS>
+			<!-- alias 3857 -->
+			<SRS>EPSG:4267</SRS>
+			<SRS>EPSG:4269</SRS>
+			<SRS>EPSG:54004</SRS>
+			<SRS>EPSG:54008</SRS>
+			<SRS>EPSG:3785</SRS>
+			<SRS>EPSG:102113</SRS>
+			<SRS>EPSG:900913</SRS>
+			<SRS>EPSG:102100</SRS>
+			<EX_GeographicBoundingBox><westBoundLongitude>-179.999996</westBoundLongitude><eastBoundLongitude>179.999996</eastBoundLongitude><southBoundLatitude>-89.000000</southBoundLatitude><northBoundLatitude>89.000000</northBoundLatitude></EX_GeographicBoundingBox>
+			<BoundingBox CRS="CRS:84" minx="-179.999996" miny="-89.000000" maxx="179.999996" maxy="89.000000"/>
+			<BoundingBox CRS="EPSG:4326" minx="-89.000000" miny="-179.999996" maxx="89.000000" maxy="179.999996"/>
+			<BoundingBox CRS="EPSG:3857" minx="-57845181.481398" miny="-43671999.971780" maxx="36550267.977186" maxy="54010853.199292"/>
+			<Layer queryable="1">
+				<Name>0</Name>
+				<Title>USGS Shaded Relief Basemap - 18k and Smaller</Title>
+				<Abstract>The USGS Hill Shade base map from The National Map was created from the National Elevation Dataset (NED), a seamless dataset of best available raster elevation data for the conterminous United States, Alaska, Hawaii, and Territorial Islands. Derived from the NED using a hill-shade technique, this base map represents a continental view showing shaded relief from USGS NED layers at resolutions of 1/3-, 1-, and 2-arc-second (in Alaska only). Shaded relief (or hill shade) function parameters are: point illumination is from the NW (azimuth = 315 degrees), and altitude of the light source is 45 degrees. Color characteristics are the result of applying a color ramp in which RGB values range from white (RGB: 255, 255, 255) to brown (RGB: 166, 150, 109). The color ramp was applied with a Stretch Type of None. Contrast and Brightness values range from 4-14%, depending on scale, for cartographic purposes. For additional information on the NED, go to http://ned.usgs.gov. </Abstract>
+				<SRS>EPSG:4326</SRS>
+				<SRS>EPSG:3857</SRS>
+				<!-- alias 3857 -->
+				<SRS>EPSG:4267</SRS>
+				<SRS>EPSG:4269</SRS>
+				<SRS>EPSG:54004</SRS>
+				<SRS>EPSG:54008</SRS>
+				<SRS>EPSG:3785</SRS>
+				<SRS>EPSG:102113</SRS>
+				<SRS>EPSG:900913</SRS>
+				<SRS>EPSG:102100</SRS>
+				<EX_GeographicBoundingBox><westBoundLongitude>-179.999996</westBoundLongitude><eastBoundLongitude>179.999996</eastBoundLongitude><southBoundLatitude>-89.000000</southBoundLatitude><northBoundLatitude>89.000000</northBoundLatitude></EX_GeographicBoundingBox>
+				<BoundingBox CRS="CRS:84" minx="-179.999996" miny="-89.000000" maxx="179.999996" maxy="89.000000"/>
+				<BoundingBox CRS="EPSG:4326" minx="-89.000000" miny="-179.999996" maxx="89.000000" maxy="179.999996"/>
+				<BoundingBox CRS="EPSG:3857" minx="-20074053.901178" miny="-30281451.060015" maxx="20074053.888922" maxy="30281451.072272"/>
+				<Style>
+					<Name>default</Name>
+					<Title>0</Title>
+					<LegendURL width="0" height="0">
+						<Format>image/png</Format>
+						<OnlineResource xlink:href="http://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WmsServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=0" xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+					</LegendURL>
+				</Style>
+				<MinScaleDenominator>17061.802548</MinScaleDenominator>
+			</Layer>
+		</Layer>
+	</Capability>
+</WMS_Capabilities>
