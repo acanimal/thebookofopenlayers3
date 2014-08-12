@@ -74,13 +74,15 @@
         "samples": [
             {
                 "title": "Tile providers",
-                "description": "Some tile providers offered by OpenLayers3",
-                "url": "samples/5010_raster_sources.html"
+                "description": "Some tile providers supported by OpenLayers3",
+                "url": "chapter03_01_tile_providers.html",
+                "thumbnail": "chapter03_01_tile_providers.png"
             },
             {
                 "title": "WMTS source",
                 "description": "Requesting a WMTS server",
-                "url": "samples/5020_wmts.html"
+                "url": "chapter03_02_wmts_source.html",
+                "thumbnail": "chapter03_02_wmts_source.png"
             },
             {
                 "title": "Vector source data",
