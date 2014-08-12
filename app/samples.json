@@ -85,14 +85,16 @@
                 "thumbnail": "chapter03_02_wmts_source.png"
             },
             {
-                "title": "Vector source data",
-                "description": "Initialize a vector source using different properties",
-                "url": "samples/5030_vector_loading.html"
+                "title": "Vector source",
+                "description": "Initialize a vector source using different ways",
+                "url": "chapter03_03_vector_source.html",
+                "thumbnail": "chapter03_03_vector_source.png"
             },
             {
-                "title": ">>>Maps synchronization",
-                "description": "How to sycnrhonize two maps using events or property binding",
-                "url": "samples/2_synchronize_maps.html"
+                "title": "ImageCanvas source",
+                "description": "Rendering information on a HTML5 canvas element",
+                "url": "chapter03_04_imagecanvas.html",
+                "thumbnail": "chapter03_04_imagecanvas.png"
             }
         ]
     }
