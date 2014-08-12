@@ -3,7 +3,17 @@ The Book of OpenLayers3 (Code samples)
 
 This repository contains the project I used to create the code samples for [The Book of OpenLayers3](https://leanpub.com/thebookofopenlayers3).
 
-![The Book of OpenLayers3](https://s3.amazonaws.com/titlepages.leanpub.com/thebookofopenlayers3/large?1405626590)
+[![The Book of OpenLayers3](https://s3.amazonaws.com/titlepages.leanpub.com/thebookofopenlayers3/large?1405626590)](https://leanpub.com/thebookofopenlayers3)
+
+Working the project
+-------------------
+
+The project is based on Yeoman webapp generator with some custom modifications. To keep the code simple I have not made use of any framework (like AngularJs, Backbone or similar) neither used any template engine.
+
+The main modification respect the Yeoman webapp generator is the addition of the [`grunt-includes`](https://github.com/vanetix/grunt-includes) plugin, which allows files inclusion and this way avoid repeating some pieces of code, like the header, the footer, etc on each example.
+
+`index.html` and all the `chapter*.html` files must be edited withint the `app_tpl` folder (that acts as the original templates). The `grunt includes` tasks is responsible to *compile* the template files and generate the right html files in the `app` folder. Any other content, like images or data, must be edited directly in the `app` folder.
+The `Gruntgile.json` has modified so when you are developing (using the `grunt serve` task) or you create a distribution (with `grunt build`) the templates are automatically compiled and updated.
 
 <hr/>
 
