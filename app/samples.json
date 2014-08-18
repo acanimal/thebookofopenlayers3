@@ -101,6 +101,11 @@
                 "description": "Accessing a WMS server",
                 "url": "chapter03_05_wmssource.html",
                 "thumbnail": "chapter03_05_wmssource.png"
+            },
+            {
+                "title": "server",
+                "description": "Accessing a WMS server",
+                "url": "chapter03_06_server.html"
             }
         ]
     }
