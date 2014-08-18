@@ -101,6 +101,11 @@
                 "description": "Accessing a WMS server",
                 "url": "chapter03_05_wmssource.html",
                 "thumbnail": "chapter03_05_wmssource.png"
+            },
+            {
+                "title": "Rendering vector as raster",
+                "description": "Rendering vector information as raster to improve performance",
+                "url": "chapter03_06_vector_as_raster.html"
             }
         ]
     }
