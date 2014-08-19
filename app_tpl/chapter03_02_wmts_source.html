@@ -30,7 +30,7 @@
         include "ganalytics.html"
 
         <script id="code">
-            var projection = ol.proj.get('EPSG:900913');
+            var projection = ol.proj.get('EPSG:3857');
             var projectionExtent = projection.getExtent();
             var size = ol.extent.getWidth(projectionExtent) / 256;
             // Generate and array of resolutions and matrixIds for this WMTS
@@ -58,13 +58,13 @@
                             layer: 'sampleiws_images_geodetic_worldgeodemo.ecw',
                             matrixSet: 'ogc:1.0:googlemapscompatible',
                             format: 'image/jpeg',
-                            projection: ol.proj.get('EPSG:900913'),
+                            projection: projection,
                             tileGrid: new ol.tilegrid.WMTS({
                                 origin: ol.extent.getTopLeft(projectionExtent),
                                 resolutions: resolutions,
                                 matrixIds: matrixIds
                             }),
-                            extent: [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+                            extent: projectionExtent,
                             style: 'default'
                         })
                     })
