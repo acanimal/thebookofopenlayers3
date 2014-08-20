@@ -19,7 +19,7 @@
             <p>The left map retrieves data in GeoJSON format and using JSONP technique. The right map retrieves data in WFS format using normal AJAX (this is possible because server accepts cross domain requests).</p>
 
             <p>The left map uses a <code>ol.loadingstrategy.bbox</code> strategy, that means WFS is queried for a given bounding box (no more information is queried outside that box). The right map, uses a <code>ol.loadingstrategy.createTile</code> strategy which allows to query in a tiled way. </p>
- 
+            
             <div class="row">
                 <div id="map" class="map col-sm-6"></div>
                 <div id="mapJsonp" class="map col-sm-6"></div>
