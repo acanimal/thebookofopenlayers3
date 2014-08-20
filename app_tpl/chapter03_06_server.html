@@ -36,6 +36,9 @@
                     featureType: 'water_areas'
                 }),
                 loader: function(extent, resolution, projection) {
+
+                    // SERVERS: https://www.gaia-gis.it/fossil/libspatialite/wiki?name=WFS
+
                     var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&version=1.1.0&typename=osm:water_areas&';
 
                     // server = 'http://mrdata.usgs.gov/services/mrds?request=getfeature&service=WFS&typename=mrds-low&version=1.0.0&';
