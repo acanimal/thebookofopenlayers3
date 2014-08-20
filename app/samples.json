@@ -111,7 +111,12 @@
             {
                 "title": "Requesting a WFS server",
                 "description": "How to access data on a WFS server",
-                "url": "chapter03_06_query_wfs.html"
+                "url": "chapter03_07_query_wfs.html"
+            },
+            {
+                "title": "Working with loading strategies",
+                "description": "How to access data on a WFS server",
+                "url": "chapter03_08_loading_strategies.html"
             }
         ]
     }

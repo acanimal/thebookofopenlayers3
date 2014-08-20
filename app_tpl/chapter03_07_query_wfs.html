@@ -18,8 +18,8 @@
 
             <p>The left map retrieves data in GeoJSON format and using JSONP technique. The right map retrieves data in WFS format using normal AJAX (this is possible because server accepts cross domain requests).</p>
 
-            <p>The left map uses a <code>ol.loadingstrategy.bbox</code> strategy, that means WFS is queried for a given bounding box (no more information is queried outside that box). The right map, uses a <code>ol.loadingstrategy.createTile</code> strategy which allows to query in a tiled way. </p>
-            
+            <p>The left map uses a <em>fixed</em> strategy, that means WFS is queried for a given bounding box and no more information is queried outside that box. The right map, uses a <code>ol.loadingstrategy.createTile</code> strategy which allows to query in a tiled way. </p>
+
             <div class="row">
                 <div id="map" class="map col-sm-6"></div>
                 <div id="mapJsonp" class="map col-sm-6"></div>
@@ -49,6 +49,7 @@
                     featureType: 'water_areas'
                 }),
                 loader: function(extent, resolution, projection) {
+                    console.log('loader', arguments);
                     var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&'+
                         'version=1.1.0&typename=osm:water_areas&';
 
@@ -62,8 +63,8 @@
                         vectorSource.addFeatures(vectorSource.readFeatures(response));
                     });
                 },
-                strategy: function() {
-                    return ol.loadingstrategy.bbox([-8473015.930372493, 5673984.22207263, -8430593.37967422, 5704559.033386701]);
+                strategy: function() { 
+                    return [ [-8473015.930372493, 5673984.22207263, -8430593.37967422, 5704559.033386701] ];
                 },
                 projection: 'EPSG:3857'
             });
