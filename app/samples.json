@@ -103,15 +103,15 @@
                 "thumbnail": "chapter03_05_wmssource.png"
             },
             {
-                "title": "Querying a WFS server",
-                "description": "How to acces a WFS server",
-                "url": "chapter03_06_server.html"
-            },
-            {
                 "title": "Rendering vector as raster",
                 "description": "Rendering vector information as raster to improve performance",
                 "url": "chapter03_06_vector_as_raster.html",
                 "thumbnail": "chapter03_06_vector_as_raster.png"
+            },
+            {
+                "title": "Requesting a WFS server",
+                "description": "How to access data on a WFS server",
+                "url": "chapter03_06_query_wfs.html"
             }
         ]
     }
