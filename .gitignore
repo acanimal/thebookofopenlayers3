@@ -1,9 +1,0 @@
-.DS_Store
-app/*.html
-!app/404.html
-node_modules
-dist
-.tmp
-.sass-cache
-bower_components
-test/bower_components
