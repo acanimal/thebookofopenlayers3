@@ -168,6 +168,7 @@ module.exports = function (grunt) {
         // Automatically inject Bower components into the HTML file
         bowerInstall: {
             app: {
+                baseUrl: 'cosa/',
                 src: ['<%= config.tpl %>/{,*/}*.html'],
                 exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
             }
@@ -180,8 +181,8 @@ module.exports = function (grunt) {
                     src: [
                         '<%= config.dist %>/scripts/{,*/}*.js',
                         '<%= config.dist %>/styles/{,*/}*.css',
-                        // '<%= config.dist %>/images/{,*/}*.*',
                         '<%= config.dist %>/styles/fonts/{,*/}*.*',
+                        // '<%= config.dist %>/images/{,*/}*.*',
                         // '<%= config.dist %>/*.{ico,png}'
                     ]
                 }
@@ -204,7 +205,7 @@ module.exports = function (grunt) {
             options: {
                 assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
             },
-            html: ['<%= config.dist %>/{,*/}*.html'],
+            html: ['<%= config.dist %>/*.html'],
             css: ['<%= config.dist %>/styles/{,*/}*.css']
         },
 
