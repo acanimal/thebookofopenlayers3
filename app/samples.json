@@ -79,6 +79,12 @@
                 "thumbnail": "chapter03_01_tile_providers.png"
             },
             {
+                "title": "WMS source",
+                "description": "Accessing a WMS server",
+                "url": "chapter03_05_wmssource.html",
+                "thumbnail": "chapter03_05_wmssource.png"
+            },
+            {
                 "title": "WMTS source",
                 "description": "Requesting a WMTS server",
                 "url": "chapter03_02_wmts_source.html",
@@ -91,16 +97,10 @@
                 "thumbnail": "chapter03_03_vector_source.png"
             },
             {
-                "title": "ImageCanvas source",
+                "title": "Working with ImageCanvas",
                 "description": "Rendering information on a HTML5 canvas element",
                 "url": "chapter03_04_imagecanvas.html",
                 "thumbnail": "chapter03_04_imagecanvas.png"
-            },
-            {
-                "title": "WMS source",
-                "description": "Accessing a WMS server",
-                "url": "chapter03_05_wmssource.html",
-                "thumbnail": "chapter03_05_wmssource.png"
             },
             {
                 "title": "Rendering vector as raster",
@@ -111,12 +111,14 @@
             {
                 "title": "Requesting a WFS server",
                 "description": "How to access data on a WFS server",
-                "url": "chapter03_07_query_wfs.html"
+                "url": "chapter03_07_query_wfs.html",
+                "thumbnail": "chapter03_07_query_wfs.png"
             },
             {
                 "title": "Working with loading strategies",
                 "description": "How to access data on a WFS server",
-                "url": "chapter03_08_loading_strategies.html"
+                "url": "chapter03_08_loading_strategies.html",
+                "thumbnail": "chapter03_08_loading_strategies.png"
             }
         ]
     }
