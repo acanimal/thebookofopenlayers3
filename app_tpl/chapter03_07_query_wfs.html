@@ -16,9 +16,9 @@
 
             <p>This example shows how we can query a WFS server.</p>
 
-            <p>The left map retrieves data in GeoJSON format and using JSONP technique. The right map retrieves data in WFS format using normal AJAX (this is possible because server accepts cross domain requests).</p>
+            <p>The left map retrieves data in WFS format using normal AJAX requests (this is possible because server accepts cross domain requests). The right map retrieves data in GeoJSON format and using JSONP technique, which avoids same domain policy restriction.</p>
 
-            <p>The left map uses a <em>fixed</em> strategy, that means WFS is queried for a given bounding box and no more information is queried outside that box. The right map, uses a <code>ol.loadingstrategy.createTile</code> strategy which allows to query in a tiled way. </p>
+            <p>Both maps uses a <code>ol.loadingstrategy.createTile</code> strategy queries vector data in a tiles like way.</p>
 
             <div class="row">
                 <div id="map" class="map col-sm-6"></div>
@@ -49,12 +49,11 @@
                     featureType: 'water_areas'
                 }),
                 loader: function(extent, resolution, projection) {
-                    console.log('loader', arguments);
-                    var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&'+
-                        'version=1.1.0&typename=osm:water_areas&';
-
-                    var url = server + 
-                        'srsname=EPSG:3857&bbox=' + extent.join(',');
+                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
+                        'service=WFS&request=GetFeature&'+
+                        'version=1.1.0&typename=osm:water_areas&'+
+                        'srsname=EPSG:3857&'+
+                        'bbox=' + extent.join(',');
 
                     $.ajax({
                         url: url
@@ -63,9 +62,9 @@
                         vectorSource.addFeatures(vectorSource.readFeatures(response));
                     });
                 },
-                strategy: function() { 
-                    return [ [-8473015.930372493, 5673984.22207263, -8430593.37967422, 5704559.033386701] ];
-                },
+                strategy: ol.loadingstrategy.createTile(new ol.tilegrid.XYZ({
+                    maxZoom: 19
+                })),
                 projection: 'EPSG:3857'
             });
 
@@ -96,13 +95,13 @@
             var vectorSourceJsonp = new ol.source.ServerVector({
                 format: new ol.format.GeoJSON(),
                 loader: function(extent, resolution, projection) {
-                    var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&'+
-                        'version=1.1.0&typename=osm:water_areas&';
-
-                    var url = server +
+                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
+                        'service=WFS&request=GetFeature&'+
+                        'version=1.1.0&typename=osm:water_areas&'+
                         'outputFormat=text/javascript&'+
                         'format_options=callback:loadFeatures&' +
-                        'srsname=EPSG:3857&bbox=' + extent.join(',');
+                        'srsname=EPSG:3857&'+
+                        'bbox=' + extent.join(',');
 
                     $.ajax({
                         url: url,

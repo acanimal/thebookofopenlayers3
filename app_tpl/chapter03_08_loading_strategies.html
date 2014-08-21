@@ -14,15 +14,11 @@
 
             <h2>Working with loading strategies</h2>
 
-            <p>This example shows how we can query a WFS server.</p>
-
-            <p>The left map retrieves data in GeoJSON format and using JSONP technique. The right map retrieves data in WFS format using normal AJAX (this is possible because server accepts cross domain requests).</p>
-
-            <p>The left map uses a <em>fixed</em> strategy, that means WFS is queried for a given bounding box and no more information is queried outside that box. The right map, uses a <code>ol.loadingstrategy.createTile</code> strategy which allows to query in a tiled way. </p>
+            <p>The left map uses a <em>fixed</em> strategy, that means WFS is queried only once for a given bounding box and no more queries are made. The right map, uses a <code>ol.loadingstrategy.bbox</code> strategy which request the server each time we change the view and for the whole map's view extent.</p>
 
             <div class="row">
-                <div id="map" class="map col-sm-6"></div>
-                <div id="mapJsonp" class="map col-sm-6"></div>
+                <div id="mapFixed" class="map col-sm-6"></div>
+                <div id="mapBbox" class="map col-sm-6"></div>
             </div>
 
             <h4 class="text-muted">Source code:</h4>
@@ -42,66 +38,15 @@
                 source: new ol.source.OSM()
             });
 
-            // Source retrieving WFS data in GML format using AJAX
-            var vectorSource = new ol.source.ServerVector({
-                format: new ol.format.WFS({
-                    featureNS: 'http://openstreemap.org',
-                    featureType: 'water_areas'
-                }),
-                loader: function(extent, resolution, projection) {
-                    console.log('loader', arguments);
-                    var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&'+
-                        'version=1.1.0&typename=osm:water_areas&';
-
-                    var url = server + 
-                        'srsname=EPSG:3857&bbox=' + extent.join(',');
-
-                    $.ajax({
-                        url: url
-                    })
-                    .done(function(response) {
-                        vectorSource.addFeatures(vectorSource.readFeatures(response));
-                    });
-                },
-                strategy: function() { 
-                    return [ [-8473015.930372493, 5673984.22207263, -8430593.37967422, 5704559.033386701] ];
-                },
-                projection: 'EPSG:3857'
-            });
-
-            // Vector layer
-            var vectorLayer = new ol.layer.Vector({
-                source: vectorSource,
-                style: new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: 'green',
-                        width: 2
-                    })
-                })
-            });
-
-            // Map
-            var map = new ol.Map({
-                target: 'map',
-                renderer: 'canvas',
-                layers: [osmLayer, vectorLayer],
-                view: new ol.View({
-                    center: ol.proj.transform([-75.923853, 45.428736], 'EPSG:4326', 'EPSG:3857'),
-                    maxZoom: 19,
-                    zoom: 11
-                })
-            });
-
-            // Source retrieving WFS data in GeoJSON format using JSONP technique
-            var vectorSourceJsonp = new ol.source.ServerVector({
+            // Source using a fixed box strategy
+            var vsStrategyFixed = new ol.source.ServerVector({
                 format: new ol.format.GeoJSON(),
                 loader: function(extent, resolution, projection) {
-                    var server = 'http://demo.opengeo.org/geoserver/wfs?service=WFS&request=GetFeature&'+
-                        'version=1.1.0&typename=osm:water_areas&';
-
-                    var url = server +
+                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
+                        'service=WFS&request=GetFeature&'+
+                        'version=1.1.0&typename=osm:water_areas&'+
                         'outputFormat=text/javascript&'+
-                        'format_options=callback:loadFeatures&' +
+                        'format_options=callback:loadFeaturesFixed&' +
                         'srsname=EPSG:3857&bbox=' + extent.join(',');
 
                     $.ajax({
@@ -109,20 +54,20 @@
                         dataType: 'jsonp'
                     });
                 },
-                strategy: ol.loadingstrategy.createTile(new ol.tilegrid.XYZ({
-                    maxZoom: 19
-                })),
+                strategy: function() {
+                    return [ [-8473015.930372493, 5673984.22207263, -8430593.37967422, 5704559.033386701] ];
+                },
                 projection: 'EPSG:3857'
             });
 
             // Executed when data is loaded by the $.ajax method.
-            var loadFeatures = function(response) {
-                vectorSourceJsonp.addFeatures(vectorSourceJsonp.readFeatures(response));
+            var loadFeaturesFixed = function(response) {
+                vsStrategyFixed.addFeatures(vsStrategyFixed.readFeatures(response));
             };
 
             // Vector layer
-            var vectorLayerJsonp = new ol.layer.Vector({
-                source: vectorSourceJsonp,
+            var vectorLayerFixed = new ol.layer.Vector({
+                source: vsStrategyFixed,
                 style: new ol.style.Style({
                     stroke: new ol.style.Stroke({
                         color: 'green',
@@ -132,14 +77,62 @@
             });
 
             // Map
-            var mapJsonp = new ol.Map({
-                target: 'mapJsonp',
+            var mapFixed = new ol.Map({
+                target: 'mapFixed',
                 renderer: 'canvas',
-                layers: [osmLayer, vectorLayerJsonp],
+                layers: [osmLayer, vectorLayerFixed],
                 view: new ol.View({
                     center: ol.proj.transform([-75.923853, 45.428736], 'EPSG:4326', 'EPSG:3857'),
                     maxZoom: 19,
-                    zoom: 11
+                    zoom: 10
+                })
+            });
+
+            // Source using a bbox strategy
+            var vsStrategyBbox = new ol.source.ServerVector({
+                format: new ol.format.GeoJSON(),
+                loader: function(extent, resolution, projection) {
+                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
+                        'service=WFS&request=GetFeature&'+
+                        'version=1.1.0&typename=osm:water_areas&'+
+                        'outputFormat=text/javascript&'+
+                        'format_options=callback:loadFeaturesBbox&' +
+                        'srsname=EPSG:3857&bbox=' + extent.join(',');
+
+                    $.ajax({
+                        url: url,
+                        dataType: 'jsonp'
+                    });
+                },
+                strategy: ol.loadingstrategy.bbox,
+                projection: 'EPSG:3857'
+            });
+
+            // Executed when data is loaded by the $.ajax method.
+            var loadFeaturesBbox = function(response) {
+                vsStrategyBbox.addFeatures(vsStrategyBbox.readFeatures(response));
+            };
+
+            // Vector layer
+            var vectorLayerBbox = new ol.layer.Vector({
+                source: vsStrategyBbox,
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'green',
+                        width: 2
+                    })
+                })
+            });
+
+            // Map
+            var mapBbox = new ol.Map({
+                target: 'mapBbox',
+                renderer: 'canvas',
+                layers: [osmLayer, vectorLayerBbox],
+                view: new ol.View({
+                    center: ol.proj.transform([-75.923853, 45.428736], 'EPSG:4326', 'EPSG:3857'),
+                    maxZoom: 19,
+                    zoom: 10
                 })
             });
         </script>
