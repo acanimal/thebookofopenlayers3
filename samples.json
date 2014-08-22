@@ -79,7 +79,12 @@
                 "thumbnail": "chapter03_01_tile_providers.png"
             },
             {
-                "title": "WMS source",
+                "title": "Reading WMS capabilities",
+                "description": "How to read WMS server capabilities",
+                "url": "chapter03_09_wmscapabilities.html"
+            },
+            {
+                "title": "Loading data from a WMS server ",
                 "description": "Accessing a WMS server",
                 "url": "chapter03_05_wmssource.html",
                 "thumbnail": "chapter03_05_wmssource.png"
