@@ -5,6 +5,11 @@ This repository contains the project I used to create the code samples for [The 
 
 [![The Book of OpenLayers3](https://s3.amazonaws.com/titlepages.leanpub.com/thebookofopenlayers3/large?1405626590)](https://leanpub.com/thebookofopenlayers3)
 
+Demo
+----
+
+You see code running at github pages: [http://acanimal.github.io/thebookofopenlayers3](http://acanimal.github.io/thebookofopenlayers3)
+
 Working the project
 -------------------
 
