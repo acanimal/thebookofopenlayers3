@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+
+        <style>
+            #result {
+                max-height: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Reading WMS capabilities</h2>
+
+            <p>This sample shows how we can read the capabilities of a WMS server.</p>
+
+            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the JavaScript object with output from the WMS server capabilities. Note we read the capabilities from a local copy of a WMS server capabilities to avoid cross domain problems.</div>
+
+            <pre><code id="result" class="json"></code></pre>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Load capabilties file using jQuery and parse using 
+            // the ol.format.WMSCapabilities format class.
+            $.get('data/MTN-Raster.xml')
+            .done(function(data) {
+                var capabilities = new ol.format.WMSCapabilities();
+                var result = capabilities.read(data);
+                console.log(result); 
+
+                $('#result').text( JSON.stringify(result) );
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
