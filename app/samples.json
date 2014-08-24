@@ -126,5 +126,26 @@
                 "thumbnail": "chapter03_08_loading_strategies.png"
             }
         ]
+    },
+    {
+        "title": "Data source and formats",
+        "samples": [
+            {
+                "title": "Playing with geometries",
+                "description": "Demonstrate how we can create geometries programmatically",
+                "url": "chapter04_01_geometries.html"
+            },
+            {
+                "title": "Creating features programmatically",
+                "description": "This example shows how we can create features programmatically without the need of a source class",
+                "url": "chapter04_02_creating_features.html",
+                "thumbnail": "chapter04_02_creating_features.png"
+            },
+            {
+                "title": "Styling",
+                "description": "Dexcribe",
+                "url": "chapter04_03_styling.html"
+            }
+        ]
     }
 ]

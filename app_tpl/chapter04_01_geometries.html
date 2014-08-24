@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Geometries</h2>
+
+            <p>Demonstrate how we can create geometries programmatically.</p>
+
+            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
+ 
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Create a point
+            var point = new ol.geom.Point([10,30]);
+            console.log(
+                "point coordinates", point.getCoordinates(), 
+                "extent", point.getExtent(), 
+                "layout", point.getLayout());
+
+            // Create a line string
+            var lineString = new ol.geom.LineString([ [0,0], [10,0], [10,10], [0,10] ]);
+            console.log(
+                "lineString coordinates", lineString.getCoordinates(), 
+                "extent", lineString.getExtent(), 
+                "layout", lineString.getLayout());
+
+            // Create a circle
+            var circle = new ol.geom.Circle([4,5], 10);
+            console.log(
+                "circle center", circle.getCenter(), 
+                "radius", circle.getRadius(),
+                "extent", circle.getExtent(), 
+                "layout", circle.getLayout());
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
