@@ -14,13 +14,17 @@
 				sample = chapter.samples[si];
 				imgsrc = sample.thumbnail ? 'images/'+sample.thumbnail : 'images/nopreview.svg';
 
-				el = '<div class="sample col-xs-6 col-md-4 col-lg-3">' +
-                    '<h5>'+ sample.title+'</h5>'+
-                    '<a href="'+ sample.url +'">'+
-                    '<img src="'+ imgsrc +'" width="240" height="180">'+
-                    '</a>'+
-                    '<p class="small">'+ sample.description +'</p>'+
-                    '<p class="small"><em>'+ chapter.title +'</em></p>'+
+				el = '<div class="col-sm-6 col-md-4 col-lg-3 sample">' +
+                    '	<h5>'+ sample.title+'</h5>'+
+                    '	<a href="'+ sample.url +'">'+
+                    '	<img src="'+ imgsrc +'" width="240" height="180">'+
+                    '	</a>'+
+                    '	<div class="container">'+
+                    '   <div class="row">'+
+                    '	<div class="small" style="width: 240px;">'+ sample.description +'</div>'+
+                    '	<div class="small" style="width: 240px;"><strong><em>Chapter: '+ chapter.title +'</em></strong></div>'+
+                    '	</div>'+
+                    '	</div>'+
 					'</div>';
 
 				elems += el;

@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Managin features programmatically</h2>
+
+            <p>The recipe shows how we can control the set features contained within a source.</p>
+ 
+            <button id="add" type="button" class="btn btn-primary btn-sm">Add +10</button>
+            <button id="increase" type="button" class="btn btn-primary btn-sm">Increase radius</button>
+            <button id="decrease" type="button" class="btn btn-primary btn-sm">Decrease radius</button>
+            <button id="remove" type="button" class="btn btn-primary btn-sm">Remove -10</button>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Source and vector layer
+            var vectorSource = new ol.source.Vector({
+                projection: 'EPSG:4326'
+            }); 
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 2
+                })
+            });
+
+            // Add 10 random circle features
+            function addFeatures() {
+                var i, lat, lon, geom, feature, features = [];
+                for(i=0; i< 10; i++) {
+                    lat = Math.random() * 174 - 87;
+                    lon = Math.random() * 360 - 180;
+
+                    geom = new ol.geom.Circle(
+                        ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'), 
+                        100000
+                    );
+
+                    feature = new ol.Feature(geom);
+                    features.push(feature);
+                }    
+                vectorSource.addFeatures(features);
+                return features;
+            }
+
+            // Remove 10 features
+            function removeFeatures() {
+                var features = vectorSource.getFeatures();
+                for(var i=0; i< features.length && i<10; i++) {
+                    vectorSource.removeFeature(features[i]);
+                }
+            }
+
+            // Increase circle feature radius. Negative values decreases.
+            function increaseRadius(inc) {
+                var features = vectorSource.getFeatures();
+                var geom;
+
+                // Note we use 'getFeatures()' because with forEachFeature we
+                // can not modify feature's geometry or will get a
+                // 'cannot update extent while reading' error.
+                for(var i=0; i< features.length; i++) {
+                    geom = features[i].getGeometry();
+                    geom.setRadius( geom.getRadius() + inc);
+                }   
+            }
+            
+            // Attach listeners.
+            $('#add').on('click', function(){
+                addFeatures();
+            });
+            $('#remove').on('click', function(){
+                removeFeatures();
+            });
+            $('#increase').on('click', function(){
+                increaseRadius(30000);
+            });
+            $('#decrease').on('click', function(){
+                increaseRadius(-30000);
+            });
+            
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>

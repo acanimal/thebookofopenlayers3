@@ -145,6 +145,12 @@
                 "title": "Styling",
                 "description": "Dexcribe",
                 "url": "chapter04_03_styling.html"
+            },
+            {
+                "title": "Managin features",
+                "description": "Describe how to handle features programmatically",
+                "url": "chapter04_04_managing_features.html",
+                "thumbnail": "chapter04_04_managing_features.png"
             }
         ]
     }
