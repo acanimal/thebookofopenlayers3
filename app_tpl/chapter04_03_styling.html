@@ -14,7 +14,7 @@
 
             <h2>Styling</h2>
 
-            <p>Description here !!!</p>
+            <p>See basic styling of features using setting fill and stroke properties.</p>
 
             <div id="map" class="map"></div>
 
@@ -45,9 +45,9 @@
 
             // Source and vector layer
             var vectorSource = new ol.source.Vector({
-                projection: 'EPSG:4326'
+                projection: 'EPSG:4326',
+                features: [pointFeature, circleFeature]
             });
-            vectorSource.addFeatures([pointFeature, circleFeature]);
 
             var style = new ol.style.Style({
                 fill: new ol.style.Fill({
@@ -57,22 +57,15 @@
                     width: 2,
                     color: 'rgba(255, 100, 50, 0.8)'
                 }),
-                text: ol.style.Text({
-                    text: 'hola',
-                    scale: 2,
-                    fill: new ol.style.Fill({
-                        color: 'rgb(12, 34, 223)'
-                    })
-                }),
                 image: new ol.style.Circle({
                     fill: new ol.style.Fill({
-                        color: 'rgba(255, 100, 50, 0.3)'
+                        color: 'rgba(55, 200, 150, 0.5)'
                     }),
                     stroke: new ol.style.Stroke({
-                        width: 2,
-                        color: 'rgba(255, 100, 50, 0.8)'
+                        width: 1,
+                        color: 'rgba(55, 200, 150, 0.8)'
                     }),
-                    radius: 5
+                    radius: 7
                 }),
             });
 
