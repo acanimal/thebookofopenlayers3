@@ -1,0 +1,113 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Icon styling</h2>
+
+            <p>This recipe shows how we can use images to style features and use as a markers.</p>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Icons
+            var icons = [
+                "images/mapiconscollection-weather/anemometer_mono.png",
+                "images/mapiconscollection-weather/cloudy.png",
+                "images/mapiconscollection-weather/cloudysunny.png",
+                "images/mapiconscollection-weather/moonstar.png",
+                "images/mapiconscollection-weather/rainy.png",
+                "images/mapiconscollection-weather/snowy-2.png",
+                "images/mapiconscollection-weather/sunny.png",
+                "images/mapiconscollection-weather/thunderstorm.png",
+                "images/mapiconscollection-weather/tornado-2.png",
+                "images/mapiconscollection-weather/umbrella-2.png",
+                "images/mapiconscollection-weather/wind-2.png"
+            ];
+
+            // Create random point features
+            var features = []
+            var i, lat, lon, geom, feature, features = [], style, rnd;
+            for(i=0; i< 200; i++) {
+                lat = Math.random() * 174 - 87;
+                lon = Math.random() * 360 - 180;
+
+                geom = new ol.geom.Point(
+                    ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857')
+                );
+
+                feature = new ol.Feature(geom);
+                features.push(feature);
+
+                rnd = Math.random();
+                style = new ol.style.Style({
+                    image: new ol.style.Icon(({
+                        scale: 1 + rnd,
+                        rotateWithView: (rnd < 0.9) ? true : false,
+                        rotation: 360 * rnd * Math.PI / 180,
+                        anchor: [0.5, 1],
+                        anchorXUnits: 'fraction',
+                        anchorYUnits: 'fraction',
+                        opacity: rnd,
+                        src: icons[ Math.floor(rnd * (icons.length-1) ) ]
+                    }))
+                });
+
+                feature.setStyle(style);
+            }    
+
+            // Source and vector layer
+            var vectorSource = new ol.source.Vector({
+                features: features
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 3
+                }),
+                interactions: ol.interaction.defaults().extend([
+                    new ol.interaction.DragRotateAndZoom()
+                ])
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
