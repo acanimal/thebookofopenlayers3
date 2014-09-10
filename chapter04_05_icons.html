@@ -57,13 +57,14 @@
                 </div>
             </div>
 
-            <div id="messageContainer" class="row">
-                <div id="message" class="col-md-12 alert alert-info text-center" role="alert">
-                    Loading <code>samples.json</code> file...
-                </div>
-            </div>
+            <h2>Icon styling</h2>
 
-            <div id="samples-container" class="row marketing"></div>
+            <p>This recipe shows how we can use images to style features and use as a markers.</p>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
 
             <div class="footer">
                 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Code samples for The Book of OpenLayers3</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/acanimal/thebookofopenlayers3" property="cc:attributionName" rel="cc:attributionURL">Antonio Santiago</a>. Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
@@ -78,8 +79,6 @@
         <!-- OpenLayers -->
         <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
 
-        <script src="scripts/8c88f5bf.main.js"></script>
-
         <!-- Google Analytics -->
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -90,6 +89,91 @@
           ga('create', 'UA-46833410-2', 'auto');
           ga('send', 'pageview');
 
+        </script>
+
+        <script id="code">
+            // Icons
+            var icons = [
+                "images/mapiconscollection-weather/anemometer_mono.png",
+                "images/mapiconscollection-weather/cloudy.png",
+                "images/mapiconscollection-weather/cloudysunny.png",
+                "images/mapiconscollection-weather/moonstar.png",
+                "images/mapiconscollection-weather/rainy.png",
+                "images/mapiconscollection-weather/snowy-2.png",
+                "images/mapiconscollection-weather/sunny.png",
+                "images/mapiconscollection-weather/thunderstorm.png",
+                "images/mapiconscollection-weather/tornado-2.png",
+                "images/mapiconscollection-weather/umbrella-2.png",
+                "images/mapiconscollection-weather/wind-2.png"
+            ];
+
+            // Create random point features
+            var features = []
+            var i, lat, lon, geom, feature, features = [], style, rnd;
+            for(i=0; i< 200; i++) {
+                lat = Math.random() * 174 - 87;
+                lon = Math.random() * 360 - 180;
+
+                geom = new ol.geom.Point(
+                    ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857')
+                );
+
+                feature = new ol.Feature(geom);
+                features.push(feature);
+
+                rnd = Math.random();
+                style = new ol.style.Style({
+                    image: new ol.style.Icon(({
+                        scale: 1 + rnd,
+                        rotateWithView: (rnd < 0.9) ? true : false,
+                        rotation: 360 * rnd * Math.PI / 180,
+                        anchor: [0.5, 1],
+                        anchorXUnits: 'fraction',
+                        anchorYUnits: 'fraction',
+                        opacity: rnd,
+                        src: icons[ Math.floor(rnd * (icons.length-1) ) ]
+                    }))
+                });
+
+                feature.setStyle(style);
+            }    
+
+            // Source and vector layer
+            var vectorSource = new ol.source.Vector({
+                features: features
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 3
+                }),
+                interactions: ol.interaction.defaults().extend([
+                    new ol.interaction.DragRotateAndZoom()
+                ])
+            });
+        </script>
+
+        <script>
+        	(function() {
+        		$('#code_text').text( $('#code').text() );
+            	hljs.initHighlightingOnLoad();
+        	})();
         </script>
 
     </body>
