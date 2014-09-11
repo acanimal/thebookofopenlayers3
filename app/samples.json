@@ -148,16 +148,22 @@
                 "thumbnail": "chapter04_03_styling.png"
             },
             {
-                "title": "Managing features",
-                "description": "Describe how to handle features programmatically",
-                "url": "chapter04_04_managing_features.html",
-                "thumbnail": "chapter04_04_managing_features.png"
-            },
-            {
                 "title": "Icon styling",
                 "description": "Show the use of images to style features",
                 "url": "chapter04_05_icons.html",
                 "thumbnail": "chapter04_05_icons.png"
+            },
+            {
+                "title": "Text within styles",
+                "description": "Using text within features style",
+                "url": "chapter04_06_text_style.html",
+                "thumbnail": "chapter04_06_text_style.png"
+            },
+            {
+                "title": "Managing features",
+                "description": "Describe how to handle features programmatically",
+                "url": "chapter04_04_managing_features.html",
+                "thumbnail": "chapter04_04_managing_features.png"
             }
         ]
     }
