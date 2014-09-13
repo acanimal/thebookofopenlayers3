@@ -91,8 +91,7 @@
 
             // Increase circle feature radius. Negative values decreases.
             function increaseRadius(inc) {
-                var features = vectorSource.getFeatures();
-                var geom;
+                var features = vectorSource.getFeatures(), geom;
 
                 // Note we use 'getFeatures()' because with forEachFeature we
                 // can not modify feature's geometry or will get a
