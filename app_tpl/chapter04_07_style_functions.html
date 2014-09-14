@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Working with style functions</h2>
+
+            <p>The example shows how we style features using the so called <em>style functions</em>, which allows a fine degree of control of the style to be applied.</p> 
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var customStyleFunction = function(feature, resolution) {
+
+                var fontSize = '18';
+                if(resolution>=39134) {
+                    fontSize = '10';
+                } else if(resolution>=9782) {
+                    fontSize = '14';
+                } else if(resolution>=2444) {
+                    fontSize = '16';
+                }
+
+                return [new ol.style.Style({
+                    text: new ol.style.Text({
+                        font: fontSize + 'px sans-serif,helvetica',
+                        text: feature.get('CITY_NAME'),
+                        fill: new ol.style.Fill({
+                            color: '#'+Math.floor(Math.random()*16777215).toString(16)
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#ddd',
+                            width: 1
+                        })
+                    })
+                })];
+            };  
+
+            // Source and vector layer
+            var vectorSource = new ol.source.GeoJSON({
+                url: './data/world_cities.json',
+                projection: 'EPSG:3857'
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                style: customStyleFunction
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 2
+                })
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>

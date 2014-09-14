@@ -160,9 +160,10 @@
                 "thumbnail": "chapter04_06_text_style.png"
             },
             {
-                "title": "Updating styles dynamically",
-                "description": "...",
-                "url": "chapter04_07_update_style.html"
+                "title": "Working with style functions",
+                "description": "Style features through style functions",
+                "url": "chapter04_07_style_functions.html",
+                "thumbnail": "chapter04_07_style_functions.png"
             },
             {
                 "title": "Managing features",
