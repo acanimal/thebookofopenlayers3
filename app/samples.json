@@ -160,6 +160,11 @@
                 "thumbnail": "chapter04_06_text_style.png"
             },
             {
+                "title": "Updating styles dynamically",
+                "description": "...",
+                "url": "chapter04_07_update_style.html"
+            },
+            {
                 "title": "Managing features",
                 "description": "Describe how to handle features programmatically",
                 "url": "chapter04_04_managing_features.html",
