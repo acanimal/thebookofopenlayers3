@@ -124,6 +124,12 @@
                 "description": "How to access data on a WFS server",
                 "url": "chapter03_08_loading_strategies.html",
                 "thumbnail": "chapter03_08_loading_strategies.png"
+            },
+            {
+                "title": "Reading and writing features",
+                "description": "Show how to read and write features to a given data format",
+                "url": "chapter03_10_reading_writing_features.html",
+                "thumbnail": "chapter03_10_reading_writing_features.png"
             }
         ]
     },
