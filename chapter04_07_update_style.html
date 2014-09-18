@@ -57,12 +57,12 @@
                 </div>
             </div>
 
-            <h2>Geometries</h2>
+            <h2>Updating styles dynamically</h2>
 
-            <p>Demonstrate how we can create geometries programmatically.</p>
+            <p>The example show how we can use text to style features.</p>
 
-            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
- 
+            <div id="map" class="map"></div>
+
             <h4 class="text-muted">Source code:</h4>
             <pre><code id="code_text" class="javascript"></code></pre>
 
@@ -77,7 +77,7 @@
         <script src="scripts/c6b52431.plugins.js"></script>
 
         <!-- OpenLayers -->
-        <script src="http://ol3js.org/en/master/build/ol.js"></script>
+        <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
 
         <!-- Google Analytics -->
         <script>
@@ -92,27 +92,90 @@
         </script>
 
         <script id="code">
-            // Create a point
-            var point = new ol.geom.Point([10,30]);
-            console.log(
-                "point coordinates", point.getCoordinates(), 
-                "extent", point.getExtent(), 
-                "layout", point.getLayout());
+            var layerFunction = function(feature, resolution) {
+                console.log("layerFunction", arguments, this);
 
-            // Create a line string
-            var lineString = new ol.geom.LineString([ [0,0], [10,0], [10,10], [0,10] ]);
-            console.log(
-                "lineString coordinates", lineString.getCoordinates(), 
-                "extent", lineString.getExtent(), 
-                "layout", lineString.getLayout());
+                return [new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 10,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0, 255, 0, 0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(255, 204, 0, 0.8)',
+                            width: 2
+                        })
+                    })
+                })];
+            };
 
-            // Create a circle
-            var circle = new ol.geom.Circle([4,5], 10);
-            console.log(
-                "circle center", circle.getCenter(), 
-                "radius", circle.getRadius(),
-                "extent", circle.getExtent(), 
-                "layout", circle.getLayout());
+            var featureFunction = function(feature, resolution) {
+                console.log("featureFunction", arguments, this);
+
+                return [new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 10,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255, 0, 0, 0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(255, 204, 0, 0.8)',
+                            width: 2
+                        })
+                    })
+                })];
+            };
+
+            // Create random point features
+            var i, lat, lon, geom, feature, features = [], style, rnd;
+            for(i=0; i< 200; i++) {
+                lat = Math.random() * 174 - 87;
+                lon = Math.random() * 360 - 180;
+
+                geom = new ol.geom.Point(
+                    ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857')
+                );
+
+                rnd = Math.random();
+                feature = new ol.Feature({
+                    geometry: geom,
+                    radius: rnd * 30,
+                    name: 'feature [' + i + ']' 
+                });
+                features.push(feature);
+
+                if(i%2===0){
+                    feature.setStyle(featureFunction);
+                }
+            }    
+
+            // Source and vector layer
+            var vectorSource = new ol.source.Vector({
+                features: features
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                style: layerFunction
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 2
+                })
+            });
         </script>
 
         <script>

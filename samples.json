@@ -124,6 +124,12 @@
                 "description": "How to access data on a WFS server",
                 "url": "chapter03_08_loading_strategies.html",
                 "thumbnail": "chapter03_08_loading_strategies.png"
+            },
+            {
+                "title": "Reading and writing features",
+                "description": "Show how to read and write features to a given data format",
+                "url": "chapter03_10_reading_writing_features.html",
+                "thumbnail": "chapter03_10_reading_writing_features.png"
             }
         ]
     },
@@ -148,16 +154,38 @@
                 "thumbnail": "chapter04_03_styling.png"
             },
             {
-                "title": "Managing features",
-                "description": "Describe how to handle features programmatically",
-                "url": "chapter04_04_managing_features.html",
-                "thumbnail": "chapter04_04_managing_features.png"
-            },
-            {
                 "title": "Icon styling",
                 "description": "Show the use of images to style features",
                 "url": "chapter04_05_icons.html",
                 "thumbnail": "chapter04_05_icons.png"
+            },
+            {
+                "title": "Text within styles",
+                "description": "Using text within features style",
+                "url": "chapter04_06_text_style.html",
+                "thumbnail": "chapter04_06_text_style.png"
+            },
+            {
+                "title": "Working with style functions",
+                "description": "Style features through style functions",
+                "url": "chapter04_07_style_functions.html",
+                "thumbnail": "chapter04_07_style_functions.png"
+            },
+            {
+                "title": "Managing features",
+                "description": "Describe how to handle features programmatically",
+                "url": "chapter04_04_managing_features.html",
+                "thumbnail": "chapter04_04_managing_features.png"
+            }
+        ]
+    },
+    {
+        "title": "Events, listeners and properties",
+        "samples": [
+            {
+                "title": "Events and listeners",
+                "description": "",
+                "url": "chapter05_01_events.html"
             }
         ]
     }

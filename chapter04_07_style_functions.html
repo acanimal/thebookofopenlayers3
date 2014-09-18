@@ -57,12 +57,12 @@
                 </div>
             </div>
 
-            <h2>Geometries</h2>
+            <h2>Working with style functions</h2>
 
-            <p>Demonstrate how we can create geometries programmatically.</p>
+            <p>The example shows how we style features using the so called <em>style functions</em>, which allows a fine degree of control of the style to be applied.</p> 
 
-            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
- 
+            <div id="map" class="map"></div>
+
             <h4 class="text-muted">Source code:</h4>
             <pre><code id="code_text" class="javascript"></code></pre>
 
@@ -92,27 +92,59 @@
         </script>
 
         <script id="code">
-            // Create a point
-            var point = new ol.geom.Point([10,30]);
-            console.log(
-                "point coordinates", point.getCoordinates(), 
-                "extent", point.getExtent(), 
-                "layout", point.getLayout());
+            var customStyleFunction = function(feature, resolution) {
 
-            // Create a line string
-            var lineString = new ol.geom.LineString([ [0,0], [10,0], [10,10], [0,10] ]);
-            console.log(
-                "lineString coordinates", lineString.getCoordinates(), 
-                "extent", lineString.getExtent(), 
-                "layout", lineString.getLayout());
+                var fontSize = '18';
+                if(resolution>=39134) {
+                    fontSize = '10';
+                } else if(resolution>=9782) {
+                    fontSize = '14';
+                } else if(resolution>=2444) {
+                    fontSize = '16';
+                }
 
-            // Create a circle
-            var circle = new ol.geom.Circle([4,5], 10);
-            console.log(
-                "circle center", circle.getCenter(), 
-                "radius", circle.getRadius(),
-                "extent", circle.getExtent(), 
-                "layout", circle.getLayout());
+                return [new ol.style.Style({
+                    text: new ol.style.Text({
+                        font: fontSize + 'px sans-serif,helvetica',
+                        text: feature.get('CITY_NAME'),
+                        fill: new ol.style.Fill({
+                            color: '#'+Math.floor(Math.random()*16777215).toString(16)
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#ddd',
+                            width: 1
+                        })
+                    })
+                })];
+            };  
+
+            // Source and vector layer
+            var vectorSource = new ol.source.GeoJSON({
+                url: './data/world_cities.json',
+                projection: 'EPSG:3857'
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                style: customStyleFunction
+            });
+
+            // Maps
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 2
+                })
+            });
         </script>
 
         <script>

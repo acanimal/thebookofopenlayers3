@@ -82,7 +82,7 @@
         <script src="scripts/c6b52431.plugins.js"></script>
 
         <!-- OpenLayers -->
-        <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
+        <script src="http://ol3js.org/en/master/build/ol.js"></script>
 
         <!-- Google Analytics -->
         <script>
@@ -106,7 +106,7 @@
                 source: vectorSource
             });
 
-            // Maps
+            // Map
             var map = new ol.Map({
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
@@ -153,8 +153,7 @@
 
             // Increase circle feature radius. Negative values decreases.
             function increaseRadius(inc) {
-                var features = vectorSource.getFeatures();
-                var geom;
+                var features = vectorSource.getFeatures(), geom;
 
                 // Note we use 'getFeatures()' because with forEachFeature we
                 // can not modify feature's geometry or will get a
@@ -162,7 +161,7 @@
                 for(var i=0; i< features.length; i++) {
                     geom = features[i].getGeometry();
                     geom.setRadius( geom.getRadius() + inc);
-                }   
+                } 
             }
             
             // Attach listeners.
