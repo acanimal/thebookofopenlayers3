@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Properties, events and listeners</h2>
+
+            <p>Demonstrates the basics on how to with properties on <code>ol.Object</code> instances and register listener functions.</p>
+
+            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
+ 
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var obj = new ol.Object({
+                name: 'some value for property A',
+                age: 32
+            });
+            obj.set('password', 123456);
+
+            console.log('I\'m an object the custom property names: ', obj.getKeys());
+            console.log('> name/value pairs: ', obj.getProperties());
+            console.log('> value for age: ', obj.get('propB'));
+
+            obj.on('beforepropertychange', function(evt) {
+                console.log('Before property change event: ', evt.key);
+            });
+            obj.on('propertychange', function(evt) {
+                console.log('Property change event: ', evt.key);
+            });
+
+            obj.on('change:name', function(evt) {
+                console.log('name changed to: ', evt.target.get('name'));
+            });
+
+            obj.on('change:password', function(evt) {
+                console.log('password changed to: ', evt.target.get('password'))
+            });
+            
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>

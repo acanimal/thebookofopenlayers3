@@ -178,5 +178,15 @@
                 "thumbnail": "chapter04_04_managing_features.png"
             }
         ]
+    },
+    {
+        "title": "Events, listeners and properties",
+        "samples": [
+            {
+                "title": "Events and listeners",
+                "description": "",
+                "url": "chapter05_01_events.html"
+            }
+        ]
     }
 ]
