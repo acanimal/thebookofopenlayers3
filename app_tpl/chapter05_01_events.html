@@ -74,6 +74,41 @@
 
             console.log('lets go to change the age property again. Nothing must happen.');
             obj.set('age', 35);
+
+            console.log('------------------------------------------------------------------------');
+
+            // Bindings
+            var john = new ol.Object({ 
+                name: 'John Smith'
+            });
+            var peter = new ol.Object({
+                name: 'Peter Smith'
+            }); 
+
+            john.on('change:age', function(evt) {
+                console.log('* (change:age) john\'s age changed to ', evt.target.get('age'));
+                showAges();
+            });
+            peter.on('change:age', function(evt) {
+                console.log('* (change:age) peter\'s age changed to ', evt.target.get('age') );
+                showAges();
+            });
+
+            var accessor = john.bindTo('age', peter);
+            accessor.transform(
+                function(sourceAge) {
+                    console.log('--> (binding transform FROM john to peter) john age changed to ' + sourceAge);
+                    return sourceAge - 5;
+                },
+                function(targetAge) {
+                    console.log('--> (binding transform from peter TO john) peter age changed to ' + targetAge);
+                    return targetAge + 5;
+                }
+            );
+
+            function showAges() {
+                console.log('  john (' + john.get('age') + ') - peter(' + peter.get('age') + ')');
+            }
              
         </script>
 
