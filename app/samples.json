@@ -186,6 +186,12 @@
                 "title": "Events, listeners and properties",
                 "description": "See the basics of events, listeners and properties in action",
                 "url": "chapter05_01_events.html"
+            },
+            {
+                "title": "Synchronizing two map views",
+                "description": "See how we can synchronize two map view to show the same location and resolution",
+                "url": "chapter05_02_synchronize_maps.html",
+                "thumbnail": "chapter05_02_synchronize_maps.png"
             }
         ]
     }
