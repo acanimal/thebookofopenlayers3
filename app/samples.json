@@ -196,7 +196,8 @@
             {
                 "title": "Mouse position",
                 "description": "Get and show the current mouse location",
-                "url": "chapter05_03_mouse_position.html"
+                "url": "chapter05_03_mouse_position.html",
+                "thumbnail": "chapter05_03_mouse_position.png"
             }
         ]
     }
