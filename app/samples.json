@@ -200,9 +200,9 @@
                 "thumbnail": "chapter05_03_mouse_position.png"
             },
             {
-                "title": "Loading process indicator",
-                "description": "Notify when layer are loading content",
-                "url": "chapter05_04_work_progress.html"
+                "title": "Listening for changes on vector data",
+                "description": "Know when data source has read data",
+                "url": "chapter05_04_changes_vector_data.html"
             }
         ]
     }
