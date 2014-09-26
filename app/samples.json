@@ -202,7 +202,8 @@
             {
                 "title": "Listening for changes on vector data",
                 "description": "Know when data source has read data",
-                "url": "chapter05_04_changes_vector_data.html"
+                "url": "chapter05_04_changes_vector_data.html",
+                "thumbnail": "chapter05_04_changes_vector_data.png"
             }
         ]
     }

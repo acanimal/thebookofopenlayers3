@@ -14,7 +14,7 @@
 
             <h2>Listening for changes on vector data</h2>
 
-            <p>Show how we can retrieve the current mouse coordinates and show in different projections.</p>
+            <p>Use the <code>change</code> event to know when data is loaded by a source and ready to be used.</p>
 
             <p>
                 Features <span id="features" class="label label-primary">0</span>
@@ -33,80 +33,35 @@
         include "ganalytics.html"
 
         <script id="code">
+            // Tiled layer
             var mapQuestLayer = new ol.layer.Tile({
                 source: new ol.source.MapQuest({
                     layer: 'osm'
                 })
             });
 
-            var sourceVector = new ol.source.ServerVector({
-                format: new ol.format.WFS({
-                    featureNS: 'http://openstreemap.org',
-                    featureType: 'water_areas'
-                }),
-                loader: function(extent, resolution, projection) {
-                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
-                        'service=WFS&request=GetFeature&'+
-                        'version=1.1.0&typename=osm:water_areas&'+
-                        'srsname=EPSG:3857&'+
-                        'bbox=' + extent.join(',');
-
-                    $.ajax({
-                        url: url
-                    })
-                    .done(function(response) {
-                        sourceVector.addFeatures(sourceVector.readFeatures(response));
-                    });
-                },
-                strategy: ol.loadingstrategy.bbox,
-                projection: 'EPSG:3857'
-            });
-
-console.log("created: ", sourceVector.getState());
-
             // Vector layer
-            var layerVector = new ol.layer.Vector({
-                source: sourceVector,
-                style: new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: 'green',
-                        width: 2
-                    })
+            var layerVector = new ol.layer.Heatmap({
+                source: new ol.source.GeoJSON({
+                    url: 'data/world_cities.json',
+                    projection: 'EPSG:3857'
                 })
             });
 
-            // var layerVector = new ol.layer.Vector({
-            //     source: new ol.source.GeoJSON({
-            //         url: 'data/world_cities.json',
-            //         projection: 'EPSG:3857'
-            //     })
-            // });
-
-console.log("layered: ", sourceVector.getState(), layerVector.getSourceState());
-
-            sourceVector.on('change', function(event) {
-                console.log("vector source change: ", event.target.getState(), event);
-            });
+            // Listen for changes
             layerVector.on('change', function(event) {
-                console.log("vector layer change: ", event);
                 $('#features').text(layerVector.getSource().getFeatures().length);
             });
-
-
 
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
                 layers: [mapQuestLayer, layerVector],
                 view: new ol.View({
-                    center: ol.proj.transform([-75.923853, 45.428736], 'EPSG:4326', 'EPSG:3857'),
-                    maxZoom: 19,
-                    zoom: 11
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 4
                 })
             });
-
-            
-
         </script>
 
         include "sourcecode.html"
