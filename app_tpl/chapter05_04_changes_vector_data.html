@@ -41,11 +41,15 @@
                 })
             });
 
+            console.log("Source state before reading: ", layerVector.getSource().getState());
+
             // Listen for changes
-            layerVector.on('change', function(event) {
+            layerVector.getSource().on('change', function(event) {
+                console.log("Source state once data is loaded: ", layerVector.getSource().getState());
+
                 $('#features').text(layerVector.getSource().getFeatures().length);
             });
-
+ 
             // Map
             var map = new ol.Map({
                 target: 'map',
