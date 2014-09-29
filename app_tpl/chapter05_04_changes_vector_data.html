@@ -33,13 +33,6 @@
         include "ganalytics.html"
 
         <script id="code">
-            // Tiled layer
-            var mapQuestLayer = new ol.layer.Tile({
-                source: new ol.source.MapQuest({
-                    layer: 'osm'
-                })
-            });
-
             // Vector layer
             var layerVector = new ol.layer.Heatmap({
                 source: new ol.source.GeoJSON({
@@ -53,10 +46,18 @@
                 $('#features').text(layerVector.getSource().getFeatures().length);
             });
 
+            // Map
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
-                layers: [mapQuestLayer, layerVector],
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    }), 
+                    layerVector
+                ],
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 4
