@@ -194,7 +194,7 @@
                 "thumbnail": "chapter05_02_synchronize_maps.png"
             },
             {
-                "title": "Mouse position",
+                "title": "Showing the mouse location",
                 "description": "Get and show the current mouse location",
                 "url": "chapter05_03_mouse_position.html",
                 "thumbnail": "chapter05_03_mouse_position.png"
