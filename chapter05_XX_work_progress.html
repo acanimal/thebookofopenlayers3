@@ -57,12 +57,16 @@
                 </div>
             </div>
 
-            <h2>Events, listeners and properties</h2>
+            <h2>Showing mouse location</h2>
 
-            <p>Demonstrates the basics on how to work with properties on <code>ol.Object</code> instances and register listener functions.</p>
+            <p>Show how we can retrieve the current mouse coordinates and show in different projections.</p>
 
-            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
- 
+            <p>
+                EPSG:3857 <span id="mouse3857" class="label label-info">0 / 0</span> 
+                EPSG:4326 <span id="mouse4326" class="label label-info">0 / 0</span>
+            </p>
+            <div id="map" class="map"></div>
+
             <h4 class="text-muted">Source code:</h4>
             <pre><code id="code_text" class="javascript"></code></pre>
 
@@ -77,7 +81,7 @@
         <script src="scripts/c6b52431.plugins.js"></script>
 
         <!-- OpenLayers -->
-        <script src="http://ol3js.org/en/master/build/ol.js"></script>
+        <script src="http://ol3js.org/en/master/build/ol-debug.js"></script>
 
         <!-- Google Analytics -->
         <script>
@@ -92,91 +96,88 @@
         </script>
 
         <script id="code">
-            // Create object setting properties
-            var obj = new ol.Object({
-                name: 'some value for property',
-                age: 32
+            var mapQuestSource = new ol.source.MapQuest({
+                layer: 'osm'
             });
-            obj.set('password', 123456);
-
-            // Print some info
-            console.log('I\'m an object with custom properties: ');
-            console.log(' > keys: ', obj.getKeys());
-            console.log(' > key/value: ', obj.getProperties());
-
-            // Register some listeners.
-            obj.on('beforepropertychange', function(evt) {
-                console.log('* Before property change event: ', evt.key);
-            });
-            obj.on('propertychange', function(evt) {
-                console.log('* Property change event: ', evt.key);
+            mapQuestSource.on('change', function(event) {
+                console.log("source change: ", event);
             });
 
-            obj.on('change:name', function(evt) {
-                console.log('-> name changed to: ' + evt.target.get('name'));
+            var mapQuestLayer = new ol.layer.Tile({
+                source: mapQuestSource
             });
-
-            obj.on('change:password', function(evt) {
-                console.log('-> password changed to: ' + evt.target.get('password'))
-            }); 
-
-            obj.once('change:age', function(evt) {
-                console.log('-> age changed to: ' + evt.target.get('age') + '. This will not be notified again.');
+            mapQuestLayer.on('change', function(event) {
+                console.log("layer change: ", event);
             });
+             
+            mapQuestLayer.on('render', function(evt){
+                console.log('render ', evt);
+            })
 
-            // Change some attributes
-            console.log('lets go to change the name property...');
-            obj.set('name', 'new name');
+            // var sourceVector = new ol.source.GeoJSON({
+            //     url: 'data/world_cities.json',
+            //     projection: 'EPSG:3857'
+            // });
+            // var layerVector = new ol.layer.Vector({
+            //     source: sourceVector
+            // });
 
-            console.log('lets go to change the password property...');
-            obj.set('password', 000000);
+            var sourceVector = new ol.source.ServerVector({
+                format: new ol.format.WFS({
+                    featureNS: 'http://openstreemap.org',
+                    featureType: 'water_areas'
+                }),
+                loader: function(extent, resolution, projection) {
+                    var url = 'http://demo.opengeo.org/geoserver/wfs?'+
+                        'service=WFS&request=GetFeature&'+
+                        'version=1.1.0&typename=osm:water_areas&'+
+                        'srsname=EPSG:3857&'+
+                        'bbox=' + extent.join(',');
 
-            console.log('lets go to change the age property...');
-            obj.set('age', 25);
-
-            console.log('lets go to change the age property again. Nothing must happen.');
-            obj.set('age', 35);
-
-            console.log('------------------------------------------------------------------------');
-
-            // Create two new instances
-            var john = new ol.Object({ 
-                name: 'John Smith'
-            });
-            var peter = new ol.Object({
-                name: 'Peter Smith'
-            }); 
-
-            // Define a binding for the 'age' property where john is always 
-            // 5 years greater than peter
-            var accessor = john.bindTo('age', peter);
-            accessor.transform(
-                function(sourceAge) {
-                    // Value from john to peter
-                    return sourceAge - 5;
+                    $.ajax({
+                        url: url
+                    })
+                    .done(function(response) {
+                        sourceVector.addFeatures(sourceVector.readFeatures(response));
+                    });
                 },
-                function(targetAge) {
-                    // Value from peter to john
-                    return targetAge + 5;
-                }
-            );
+                strategy: ol.loadingstrategy.createTile(new ol.tilegrid.XYZ({
+                    maxZoom: 19
+                })),
+                projection: 'EPSG:3857'
+            });
 
-            // Make some changes
-            console.log('set john to 30...')
-            john.set('age', 30);
-            showAges();
+            // Vector layer
+            var layerVector = new ol.layer.Vector({
+                source: sourceVector,
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'green',
+                        width: 2
+                    })
+                })
+            });
 
-            console.log('set john to 40...')
-            john.set('age', 40);
-            showAges();
+            sourceVector.on('change', function(event) {
+                console.log("vector source change: ", event);
+            });
+            layerVector.on('change', function(event) {
+                console.log("vector layer change: ", event);
+            });
 
-            console.log('set peter to 40...')
-            peter.set('age', 40);
-            showAges();
+            var map = new ol.Map({
+                target: 'map',
+                renderer: 'canvas',
+                layers: [mapQuestLayer, layerVector],
+                view: new ol.View({
+                    center: ol.proj.transform([-75.923853, 45.428736], 'EPSG:4326', 'EPSG:3857'),
+                    maxZoom: 19,
+                    zoom: 11
+                })
+            });
 
-            function showAges() {
-                console.log('john(' + john.get('age') + ') - peter(' + peter.get('age') + ')');
-            }
+            
+
         </script>
 
         <script>

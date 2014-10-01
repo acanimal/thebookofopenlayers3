@@ -57,12 +57,21 @@
                 </div>
             </div>
 
-            <h2>Events, listeners and properties</h2>
+            <h2>Synchronize maps</h2>
 
-            <p>Demonstrates the basics on how to work with properties on <code>ol.Object</code> instances and register listener functions.</p>
+            <p>This recipe shows how we can have to map synchronized at the same location and resolution.</p>
 
-            <div style="margin-top: 5px;" class="alert alert-success">Open the browser console to see the output produces by the code.</div>
- 
+            <div class="checkbox">
+                <label>
+                    <input id="twice" type="checkbox"> Make resolution twice
+                </label>
+            </div>
+
+             <div class="row">
+                <div class="col-md-6"><div id="mapMQ" class="map"></div></div>
+                <div class="col-md-6"><div id="mapOSM" class="map"></div></div>
+            </div>
+
             <h4 class="text-muted">Source code:</h4>
             <pre><code id="code_text" class="javascript"></code></pre>
 
@@ -92,91 +101,59 @@
         </script>
 
         <script id="code">
-            // Create object setting properties
-            var obj = new ol.Object({
-                name: 'some value for property',
-                age: 32
-            });
-            obj.set('password', 123456);
-
-            // Print some info
-            console.log('I\'m an object with custom properties: ');
-            console.log(' > keys: ', obj.getKeys());
-            console.log(' > key/value: ', obj.getProperties());
-
-            // Register some listeners.
-            obj.on('beforepropertychange', function(evt) {
-                console.log('* Before property change event: ', evt.key);
-            });
-            obj.on('propertychange', function(evt) {
-                console.log('* Property change event: ', evt.key);
+            var mapMQ = new ol.Map({
+                target: 'mapMQ',
+                renderer: 'canvas',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 8
+                })
             });
 
-            obj.on('change:name', function(evt) {
-                console.log('-> name changed to: ' + evt.target.get('name'));
+            var mapOSM = new ol.Map({
+                target: 'mapOSM',
+                renderer: 'canvas',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 8
+                })
             });
 
-            obj.on('change:password', function(evt) {
-                console.log('-> password changed to: ' + evt.target.get('password'))
-            }); 
-
-            obj.once('change:age', function(evt) {
-                console.log('-> age changed to: ' + evt.target.get('age') + '. This will not be notified again.');
-            });
-
-            // Change some attributes
-            console.log('lets go to change the name property...');
-            obj.set('name', 'new name');
-
-            console.log('lets go to change the password property...');
-            obj.set('password', 000000);
-
-            console.log('lets go to change the age property...');
-            obj.set('age', 25);
-
-            console.log('lets go to change the age property again. Nothing must happen.');
-            obj.set('age', 35);
-
-            console.log('------------------------------------------------------------------------');
-
-            // Create two new instances
-            var john = new ol.Object({ 
-                name: 'John Smith'
-            });
-            var peter = new ol.Object({
-                name: 'Peter Smith'
-            }); 
-
-            // Define a binding for the 'age' property where john is always 
-            // 5 years greater than peter
-            var accessor = john.bindTo('age', peter);
+            mapMQ.getView().bindTo('center', mapOSM.getView());
+            var accessor = mapMQ.getView().bindTo('resolution', mapOSM.getView());
             accessor.transform(
-                function(sourceAge) {
-                    // Value from john to peter
-                    return sourceAge - 5;
+                function(sourceResolution) {
+                    if( $('#twice').prop('checked') ) {
+                        return sourceResolution / 2;
+                    } else {
+                        return sourceResolution;
+                    }
                 },
-                function(targetAge) {
-                    // Value from peter to john
-                    return targetAge + 5;
+                function(targetResolution) {
+                    if( $('#twice').prop('checked') ) {
+                        return targetResolution * 2;
+                    } else {
+                        return targetResolution;
+                    }
                 }
             );
 
-            // Make some changes
-            console.log('set john to 30...')
-            john.set('age', 30);
-            showAges();
-
-            console.log('set john to 40...')
-            john.set('age', 40);
-            showAges();
-
-            console.log('set peter to 40...')
-            peter.set('age', 40);
-            showAges();
-
-            function showAges() {
-                console.log('john(' + john.get('age') + ') - peter(' + peter.get('age') + ')');
-            }
+            $('#twice').on('click', function() {
+                mapOSM.render();
+                mapMQ.render();
+            });
         </script>
 
         <script>
