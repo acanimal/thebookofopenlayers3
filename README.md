@@ -11,7 +11,7 @@ You see code running at github pages: [http://acanimal.github.io/thebookofopenla
 
 [![The Book of OpenLayers3](https://s3.amazonaws.com/titlepages.leanpub.com/thebookofopenlayers3/large?1405626590)](https://leanpub.com/thebookofopenlayers3)
 
-Working the project
+Working with the project
 -------------------
 
 The project is based on Yeoman webapp generator with some custom modifications. To keep the code simple I have not made use of any framework (like AngularJs, Backbone or similar) neither used any template engine.
