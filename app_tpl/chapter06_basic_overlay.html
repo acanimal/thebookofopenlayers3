@@ -33,6 +33,7 @@
                 I'm a overlay placed at: <span id="coordinate" class="label label-primary">0, 0</span>
             </div> 
 
+            <input id="stopEvent" type="checkbox" checked> stopEvent <input id="insertFirst" type="checkbox"> insertFirst
             <div id="map" class="map"></div>
 
             <h4 class="text-muted">Source code:</h4>
@@ -47,6 +48,15 @@
         include "ganalytics.html"
 
         <script id="code">
+            function createOverlay(stopEvent, insertFirst) {
+                return new ol.Overlay({
+                    element: document.getElementById('myOverlay'),
+                    positioning: 'top-right',
+                    stopEvent: stopEvent,
+                    insertFirst: insertFirst
+                });
+            }
+
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
@@ -63,11 +73,7 @@
                 })
             });
 
-            var overlay = new ol.Overlay({
-                element: document.getElementById('myOverlay'),
-                positioning: 'top-right',
-                stopEvent: false
-            });
+            var overlay = createOverlay(true, false);
             map.addOverlay(overlay);
 
             map.on('click', function(event) {
@@ -75,6 +81,19 @@
                 $('#coordinate').text(ol.coordinate.toStringXY(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'), 2));
 
                 overlay.setPosition(coordinate);
+                $(overlay.getElement()).show(); 
+            });
+
+            $('#stopEvent, #insertFirst').on('click', function(){
+                var stopEvent = $('#stopEvent').is(':checked');
+                var insertFirst = $('#insertFirst').is(':checked');
+
+                var prevPos = overlay.getPosition();
+                map.removeOverlay();
+                overlay = createOverlay(stopEvent, insertFirst);
+                overlay.setPosition(prevPos);
+                map.addOverlay(overlay);
+
                 $(overlay.getElement()).show(); 
             });
 
