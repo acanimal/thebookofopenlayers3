@@ -215,6 +215,11 @@
                 "description": "Demonstrates how to create a basic overlay from a HTML element",
                 "url": "chapter06_basic_overlay.html",
                 "thumbnail": "chapter06_basic_overlay.png"
+            },
+            {
+                "title": "Markers as overlays",
+                "description": "Shows how we can use overlays to implement markers.",
+                "url": "chapter06_markers_overlays.html"
             }
         ]
     }
