@@ -206,5 +206,15 @@
                 "thumbnail": "chapter05_04_changes_vector_data.png"
             }
         ]
+    },
+    {
+        "title": "Overlays",
+        "samples": [
+            {
+                "title": "A basic overlay",
+                "description": "Demonstrates how to create a basic overlay from a HTML element",
+                "url": "chapter06_basic_overlay.html"
+            }
+        ]
     }
 ]

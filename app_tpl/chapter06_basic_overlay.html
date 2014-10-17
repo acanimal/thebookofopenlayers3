@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+        <style>
+            .overlay {
+                background-color: #fff;
+                border: 2px #bbb solid;
+                border-radius: 7px;
+                border-top-right-radius: 0px;
+                padding: 10px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+ 
+            <h2>Basic overlay</h2>
+
+            <p>Demonstrates how to create a basic overlay from a HTML element. Click on the map to show/move the overlay that shows the clicked coordinates.</p>
+
+            <div id="myOverlay" class="overlay">
+                I'm a overlay placed at: <span id="coordinate" class="label label-primary">0, 0</span>
+            </div> 
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var map = new ol.Map({
+                target: 'map',
+                renderer: 'canvas',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 8
+                })
+            });
+
+            var overlay = new ol.Overlay({
+                element: document.getElementById('myOverlay'),
+                positioning: 'top-right',
+                stopEvent: false
+            });
+            map.addOverlay(overlay);
+
+            map.on('click', function(event) {
+                var coordinate = event.coordinate;
+                $('#coordinate').text(ol.coordinate.toStringXY(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'), 2));
+
+                overlay.setPosition(coordinate);
+                $(overlay.getElement()).show(); 
+            });
+
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
