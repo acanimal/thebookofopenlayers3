@@ -29,10 +29,6 @@
 
             <p>Demonstrates how to create a basic overlay from a HTML element. Click on the map to show/move the overlay that shows the clicked coordinates.</p>
 
-            <div id="myOverlay" class="overlay">
-                I'm a overlay placed at: <span id="coordinate" class="label label-primary">0, 0</span>
-            </div> 
-
             <input id="stopEvent" type="checkbox" checked> stopEvent <input id="insertFirst" type="checkbox"> insertFirst
             <div id="map" class="map"></div>
 
@@ -50,11 +46,20 @@
         <script id="code">
             function createOverlay(stopEvent, insertFirst) {
                 return new ol.Overlay({
-                    element: document.getElementById('myOverlay'),
+                    element: $('<div id="myOverlay" class="overlay">I\'m an overlay placed at: <span id="coordinate" class="label label-primary">0, 0</span></div> '),
                     positioning: 'top-right',
                     stopEvent: stopEvent,
                     insertFirst: insertFirst
                 });
+            }
+
+            function setCoordinateAndShow(coordinate) {
+                // Set position
+                overlay.setPosition(coordinate);
+                // Update overlay label
+                $('#coordinate').text(ol.coordinate.toStringXY(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'), 2));
+                // Show overlay
+                $(overlay.getElement()).show(); 
             }
 
             var map = new ol.Map({
@@ -78,10 +83,7 @@
 
             map.on('click', function(event) {
                 var coordinate = event.coordinate;
-                $('#coordinate').text(ol.coordinate.toStringXY(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'), 2));
-
-                overlay.setPosition(coordinate);
-                $(overlay.getElement()).show(); 
+                setCoordinateAndShow(coordinate);
             });
 
             $('#stopEvent, #insertFirst').on('click', function(){
@@ -89,12 +91,11 @@
                 var insertFirst = $('#insertFirst').is(':checked');
 
                 var prevPos = overlay.getPosition();
-                map.removeOverlay();
+                map.removeOverlay(overlay);
                 overlay = createOverlay(stopEvent, insertFirst);
-                overlay.setPosition(prevPos);
                 map.addOverlay(overlay);
 
-                $(overlay.getElement()).show(); 
+                setCoordinateAndShow(prevPos);
             });
 
         </script>
