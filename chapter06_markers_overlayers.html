@@ -17,6 +17,11 @@
 
         <!-- OpenLayers -->
         <link rel="stylesheet" href="http://ol3js.org/en/master/css/ol.css">
+        <style>
+            .overlaysContainer {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -56,41 +61,16 @@
                     </script>
                 </div>
             </div>
+ 
+            <h2>Markers as overlays</h2>
 
-            <h2>Fit extent</h2>
+            <p>Shows how we can use overlays to implement markers. Because overlays are HTML element we can create graceful icons using CSS or SVG.</p>
 
-            <p>Modify the view extent to fit the specified bounding box:</p>
-
-            <form role="form">
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="lon">Min. Longitude:</label>
-                            <input type="text" class="form-control" id="minlon" placeholder="latitude" value="0.0">
-                        </div>
-                        <div class="form-group">
-                            <label for="lat">Min. Latitude:</label>
-                            <input type="text" class="form-control" id="minlat" placeholder="longitude" value="0.0">
-                        </div>
-                    </div>
+            <div class="overlaysContainer">
                 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="lon">Max. Longitude:</label>
-                            <input type="text" class="form-control" id="maxlon" placeholder="latitude" value="0.0">
-                        </div>
-                        <div class="form-group">
-                            <label for="lat">Max. Latitude:</label>
-                            <input type="text" class="form-control" id="maxlat" placeholder="longitude" value="0.0">
-                        </div>
-                    </div>
+            </div> 
 
-                </div>
-
-                <button type="button" class="btn btn-primary btn-xs" id="change">Change</button>
-            </form>
-
+            <input id="stopEvent" type="checkbox" checked> stopEvent <input id="insertFirst" type="checkbox"> insertFirst
             <div id="map" class="map"></div>
 
             <h4 class="text-muted">Source code:</h4>
@@ -122,51 +102,55 @@
         </script>
 
         <script id="code">
+            function createOverlay(stopEvent, insertFirst) {
+                return new ol.Overlay({
+                    element: document.getElementById('myOverlay'),
+                    positioning: 'top-right',
+                    stopEvent: stopEvent,
+                    insertFirst: insertFirst
+                });
+            }
+
             var map = new ol.Map({
-                target: 'map',  // The DOM element that will contains the map
-                renderer: 'canvas', // Force the renderer to be used
+                target: 'map',
+                renderer: 'canvas',
                 layers: [
-                    // Add a new Tile layer getting tiles from OpenStreetMap source
                     new ol.layer.Tile({
-                        source: new ol.source.OSM()
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
                     })
                 ],
-                // Create a view centered on the specified location and zoom level
                 view: new ol.View({
                     center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 6
+                    zoom: 8
                 })
             });
 
-            $(document).ready(function() {
+            var overlay = createOverlay(true, false);
+            map.addOverlay(overlay);
 
-                // Compute the current extent of the view given the map size
-                var extent = map.getView().calculateExtent(map.getSize());
+            map.on('click', function(event) {
+                var coordinate = event.coordinate;
+                $('#coordinate').text(ol.coordinate.toStringXY(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'), 2));
 
-                // Transform the extent from EPSG:3857 to EPSG:4326
-                extent = ol.extent.applyTransform(extent, ol.proj.getTransform("EPSG:3857", "EPSG:4326"));
-
-                $('#minlon').val(extent[0]);
-                $('#minlat').val(extent[1]);
-                $('#maxlon').val(extent[2]);
-                $('#maxlat').val(extent[3]);
-
-                // Each time user clicks the button...
-                $('#change').on('click', function() {
-
-                    // Get input fields values
-                    var minlon = parseInt($('#minlon').val());
-                    var minlat = parseInt($('#minlat').val());
-                    var maxlon = parseInt($('#maxlon').val());
-                    var maxlat = parseInt($('#maxlat').val());
-
-                    // Trasnform extent to EPSG:3857
-                    var extent = [minlon, minlat, maxlon, maxlat];
-                    extent = ol.extent.applyTransform(extent, ol.proj.getTransform("EPSG:4326", "EPSG:3857"));
-                    
-                    map.getView().fitExtent(extent, map.getSize());
-                });
+                overlay.setPosition(coordinate);
+                $(overlay.getElement()).show(); 
             });
+
+            $('#stopEvent, #insertFirst').on('click', function(){
+                var stopEvent = $('#stopEvent').is(':checked');
+                var insertFirst = $('#insertFirst').is(':checked');
+
+                var prevPos = overlay.getPosition();
+                map.removeOverlay();
+                overlay = createOverlay(stopEvent, insertFirst);
+                overlay.setPosition(prevPos);
+                map.addOverlay(overlay);
+
+                $(overlay.getElement()).show(); 
+            });
+
         </script>
 
         <script>
