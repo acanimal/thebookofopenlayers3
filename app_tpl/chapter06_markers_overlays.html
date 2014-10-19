@@ -162,11 +162,13 @@
             $.get('./data/2012_Earthquakes_Mag5.kml')
                 .done(function(response){
                     var format = new ol.format.KML();
-                    var features = format.readFeatures(response);
+                    var features = format.readFeatures(response, {
+                      featureProjection: 'EPSG:3857'
+                    });
                     var coordinates, overlay;
                     for (var i = 0; i < features.length; i+=15) {
                         coordinates = features[i].getGeometry().getCoordinates();
-                        overlay = createCircleOutOverlay(ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857'));
+                        overlay = createCircleOutOverlay(coordinates);
                         map.addOverlay(overlay);
                     };
                 });
