@@ -217,7 +217,7 @@
                 "thumbnail": "chapter06_basic_overlay.png"
             },
             {
-                "title": "Markers as overlays",
+                "title": "Using overlays as markers",
                 "description": "Shows how we can use overlays to implement markers.",
                 "url": "chapter06_markers_overlays.html",
                 "thumbnail": "chapter06_markers_overlays.png"
