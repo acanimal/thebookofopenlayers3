@@ -204,6 +204,12 @@
                 "description": "Know when data source has read data",
                 "url": "chapter05_04_changes_vector_data.html",
                 "thumbnail": "chapter05_04_changes_vector_data.png"
+            },
+            {
+                "title": "Styling features under the pointer",
+                "description": "Detects pointer move events and retrieves current features.",
+                "url": "chapter05_05_features_under_pointer.html",
+                "thumbnail": "chapter05_05_features_under_pointer.png"
             }
         ]
     },

@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+
+            <h2>Styling features under the pointer</h2>
+
+            <p>This recipe shows how we can retrieve the set of features that are currently under the pointer position and how change its style.</p>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            // Define styles
+            var normalStyle = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 4,
+                    fill: new ol.style.Fill({
+                        color: 'rgba(20,150,200,0.3)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(20,130,150,0.8)',
+                        width: 1
+                    })
+                })
+            });
+            var selectedStyle = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 40,
+                    fill: new ol.style.Fill({
+                        color: 'rgba(150,150,200,0.6)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(20,30,100,0.8)',
+                        width: 3
+                    })
+                })
+            });
+            var selectedTextStyleFunction = function(name) {
+                return new ol.style.Style({
+                    text: new ol.style.Text({
+                        font: '14px helvetica,sans-serif',
+                        text: name,
+                        fill: new ol.style.Fill({
+                            color: '#000'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#fff',
+                            width: 2
+                        })
+                    })
+                });
+            };
+
+            // Source and vector layer
+            var geojsonSource = new ol.source.GeoJSON({
+                url: 'data/world_cities.json',
+                projection: 'EPSG:3857'
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+                source: geojsonSource,
+                style: normalStyle
+            });
+
+            // Map
+            var map = new ol.Map({
+                target: 'map',  // The DOM element that will contains the map
+                renderer: 'canvas', // Force the renderer to be used
+                layers: [
+                    // Add a new Tile layer getting tiles from OpenStreetMap source
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                // Create a view centered on the specified location and zoom level
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 4
+                })
+            });
+
+            // Handle pointer interaction
+            var selectedFeatures = [];
+
+            function unselectPreviousFeatures() {
+                var i;
+                for(i=0; i< selectedFeatures.length; i++) {
+                    selectedFeatures[i].setStyle(null);
+                }
+                selectedFeatures = [];
+            }
+
+            map.on('pointermove', function(event) {
+                unselectPreviousFeatures();                
+                map.forEachFeatureAtPixel(event.pixel, function(feature) {
+                    feature.setStyle([
+                        selectedStyle, 
+                        selectedTextStyleFunction(feature.get('CITY_NAME'))
+                    ]);
+                    selectedFeatures.push(feature);
+                });
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
