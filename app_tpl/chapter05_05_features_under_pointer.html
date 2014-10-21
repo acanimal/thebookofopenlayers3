@@ -100,9 +100,9 @@
                 })
             });
 
-            // Handle pointer interaction
             var selectedFeatures = [];
 
+            // Unselect previous selected features
             function unselectPreviousFeatures() {
                 var i;
                 for(i=0; i< selectedFeatures.length; i++) {
@@ -111,6 +111,7 @@
                 selectedFeatures = [];
             }
 
+            // Handle pointer
             map.on('pointermove', function(event) {
                 unselectPreviousFeatures();                
                 map.forEachFeatureAtPixel(event.pixel, function(feature) {
