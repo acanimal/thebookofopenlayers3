@@ -218,7 +218,7 @@
         "samples": [
             {
                 "title": "A basic overlay",
-                "description": "Demonstrates how to create a basic overlay from a HTML element",
+                "description": "Demonstrates how to create a basic overlay from a HTML element.",
                 "url": "chapter06_basic_overlay.html",
                 "thumbnail": "chapter06_basic_overlay.png"
             },
@@ -227,6 +227,16 @@
                 "description": "Shows how we can use overlays to implement markers.",
                 "url": "chapter06_markers_overlays.html",
                 "thumbnail": "chapter06_markers_overlays.png"
+            }
+        ]
+    },
+    {
+        "title": "Controls and Interactions",
+        "samples": [
+            {
+                "title": "Custom control",
+                "description": "Demonstrates how we can create a custom control.",
+                "url": "chapter07_custom_control.html"
             }
         ]
     }

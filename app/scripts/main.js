@@ -10,6 +10,9 @@
 		for(ci=0; ci<data.length; ci++) {
 			chapter = data[ci];
 
+			elems += '<div class="row">';
+			elems += '<h2>' + chapter.title + '</h2><hr/>';
+
 			for(si=0; si<chapter.samples.length; si++) {
 				sample = chapter.samples[si];
 				imgsrc = sample.thumbnail ? 'images/'+sample.thumbnail : 'images/nopreview.svg';
@@ -29,6 +32,8 @@
 
 				elems += el;
 			}
+
+			elems += '</div>';
 		}
 
 		var samplesContainer = $('#samples-container');

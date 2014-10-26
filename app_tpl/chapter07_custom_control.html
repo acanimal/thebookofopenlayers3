@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+        
+        <style>
+            #customControl {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+ 
+            <h2>Custom control</h2>
+
+            <p>Demonstrates how we can create a custom control to interact with the map's view.</p>
+
+            <div id="customControl">
+                <button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+            </div>
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var CustomControl = function(opt_options) {
+
+                var options = opt_options || {};
+
+                var element = document.getElementById('customControl');
+                var this_ = this;
+
+                var zoomInBtn = $(element).find('button')[0];
+                $(zoomInBtn).on('click', function() {
+                    var view = this_.getMap().getView();
+                    var newResolution = view.constrainResolution(view.getResolution(), 1);
+                    view.setResolution(newResolution);
+                });
+
+                var zoomOutBtn = $(element).find('button')[1];
+                $(zoomOutBtn).on('click', function() {
+                    var view = this_.getMap().getView();
+                    var newResolution = view.constrainResolution(view.getResolution(), -1);
+                    view.setResolution(newResolution);
+                });
+
+                ol.control.Control.call(this, {
+                    element: element,
+                    target: options.target
+                })
+            };
+            ol.inherits(CustomControl, ol.control.Control);
+
+            var map = new ol.Map({
+                target: 'map',
+                renderer: 'canvas',
+                controls: [new CustomControl()],
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 41.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 8
+                })
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
