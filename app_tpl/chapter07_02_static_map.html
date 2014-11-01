@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+        
+        <style>
+            #customControl {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+ 
+            <h2>Static map</h2>
+
+            <p>On this example we are going to create a map without controls and interactions associated, producing a <em>static</em> map that can not modify its view.</p> 
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var map = new ol.Map({
+                target: 'map',
+                renderer: 'canvas',
+                controls: [],
+                interactions: [],
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 42.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 7
+                })
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>

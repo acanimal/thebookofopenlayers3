@@ -44,9 +44,7 @@
 
         <script id="code">
             var CustomControl = function(opt_options) {
-
                 var options = opt_options || {};
-
                 var element = document.getElementById('customControl');
                 var this_ = this;
 
@@ -67,7 +65,7 @@
                 ol.control.Control.call(this, {
                     element: element,
                     target: options.target
-                })
+                });
             };
             ol.inherits(CustomControl, ol.control.Control);
 
