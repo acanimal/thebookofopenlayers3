@@ -239,6 +239,11 @@
                 "url": "chapter07_02_static_map.html"
             },
             {
+                "title": "Playing with controls",
+                "description": "Shows how to use most of the controls offered by OpenLayers3.",
+                "url": "chapter07_03_playing_controls.html"
+            },
+            {
                 "title": "Custom control",
                 "description": "Demonstrates how we can create a custom control.",
                 "url": "chapter07_01_custom_control.html",
