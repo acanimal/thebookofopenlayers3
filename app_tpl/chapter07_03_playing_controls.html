@@ -4,6 +4,9 @@
         include "head.html"
         
         <style>
+            .toggle {
+                width: 100px;
+            }
             .ol-mouse-position {
                 right: 3em;
                 color: #fff;
@@ -77,7 +80,7 @@
 
         <script id="code">
             // Create controls
-            var controls = new ol.Collection([
+            var controls = [
                 new ol.control.Attribution(),
                 new ol.control.MousePosition({
                     undefinedHTML: 'outside',
@@ -97,13 +100,13 @@
                 new ol.control.ZoomSlider(),
                 new ol.control.ZoomToExtent(),
                 new ol.control.FullScreen()
-            ]);
+            ];
 
             // Initialize map
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
-                controls: controls.getArray(),
+                controls: controls,
                 layers: [
                     new ol.layer.Tile({
                         source: new ol.source.MapQuest({
@@ -116,16 +119,16 @@
                     zoom: 7
                 })
             });
-
+ 
             // Listen for changes on chekcboxes
             $('input').on('change', function(event) {
                 var index = $('input').index(event.target);
                 var checked = $(event.target).is(':checked');
 
                 if(checked) {
-                    map.addControl(controls.item(index));
+                    map.addControl(controls[index]);
                 } else {
-                    map.removeControl(controls.item(index));
+                    map.removeControl(controls[index]);
                 }
             });
         </script>
