@@ -236,12 +236,14 @@
             {
                 "title": "Static map",
                 "description": "A map whose view can not by modified.",
-                "url": "chapter07_02_static_map.html"
+                "url": "chapter07_02_static_map.html",
+                "thumbnail": "chapter07_02_static_map.png"
             },
             {
                 "title": "Playing with controls",
                 "description": "Shows how to use most of the controls offered by OpenLayers3.",
-                "url": "chapter07_03_playing_controls.html"
+                "url": "chapter07_03_playing_controls.html",
+                "thumbnail": "chapter07_03_playing_controls.png"
             },
             {
                 "title": "Custom control",

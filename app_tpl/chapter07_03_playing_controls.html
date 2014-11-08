@@ -4,10 +4,30 @@
         include "head.html"
         
         <style>
-            #customControl {
-                position: absolute;
-                top: 10px;
-                left: 10px;
+            .ol-mouse-position {
+                right: 3em;
+                color: #fff;
+                background-color: rgba(0,60,136,.5);
+                padding: 2px 10px;
+                border-radius: 5px;
+            }
+
+            .ol-scale-line {
+                left: 175px;
+            }
+
+            .ol-rotate {
+                top: 3em;
+            }
+
+            .ol-zoomslider {
+                width: 200px;
+                height: 25px;
+                left: 3em;
+                top: 0.5em;
+            }
+            .ol-zoomslider-thumb {
+                height: 16px;
             }
         </style>
     </head>
@@ -38,8 +58,6 @@
 
             <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="ZoomSlider" data-off="ZoomSlider">
 
-            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="ZoomReset" data-off="ZoomReset">
-
             <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="ZoomToExtent" data-off="ZoomToExtent">
 
             <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="FullScreen" data-off="FullScreen">
@@ -58,20 +76,34 @@
         include "ganalytics.html"
 
         <script id="code">
-            var controls = [
+            // Create controls
+            var controls = new ol.Collection([
                 new ol.control.Attribution(),
                 new ol.control.MousePosition({
+                    undefinedHTML: 'outside',
                     projection: 'EPSG:4326',
-                    coordinateFormat: ''
-                })
-            ];
+                    coordinateFormat: function(coordinate) {
+                        return ol.coordinate.format(coordinate, '{x}, {y}', 4);
+                    }
+                }),
+                new ol.control.OverviewMap({
+                    collapsed: false
+                }),
+                new ol.control.Rotate({
+                    autoHide: false
+                }),
+                new ol.control.ScaleLine(),
+                new ol.control.Zoom(),
+                new ol.control.ZoomSlider(),
+                new ol.control.ZoomToExtent(),
+                new ol.control.FullScreen()
+            ]);
 
-
+            // Initialize map
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
-                controls: controls,
-                interactions: [],
+                controls: controls.getArray(),
                 layers: [
                     new ol.layer.Tile({
                         source: new ol.source.MapQuest({
@@ -83,6 +115,18 @@
                     center: ol.proj.transform([2.1833, 42.3833], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 7
                 })
+            });
+
+            // Listen for changes on chekcboxes
+            $('input').on('change', function(event) {
+                var index = $('input').index(event.target);
+                var checked = $(event.target).is(':checked');
+
+                if(checked) {
+                    map.addControl(controls.item(index));
+                } else {
+                    map.removeControl(controls.item(index));
+                }
             });
         </script>
 
