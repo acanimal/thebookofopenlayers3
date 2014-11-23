@@ -250,6 +250,12 @@
                 "description": "Demonstrates how we can create a custom control.",
                 "url": "chapter07_01_custom_control.html",
                 "thumbnail": "chapter07_01_custom_control.png"
+            },
+            {
+                "title": "Feature overlay",
+                "description": "Basic example on how to create a feature overlay",
+                "url": "chapter07_04_featureoverlay.html",
+                "thumbnail": "chapter07_04_featureoverlay.png"
             }
         ]
     }
