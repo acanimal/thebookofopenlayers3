@@ -256,6 +256,17 @@
                 "description": "Basic example on how to create a feature overlay",
                 "url": "chapter07_04_featureoverlay.html",
                 "thumbnail": "chapter07_04_featureoverlay.png"
+            },
+            {
+                "title": "Managing interactions",
+                "description": "Sample on how to add/remove and activate interactions",
+                "url": "chapter07_05_managing_interactions.html",
+                "thumbnail": "chapter07_05_managing_interactions.png"
+            },
+            {
+                "title": "Editing features",
+                "description": "Draw and store features in different vector formats",
+                "url": "chapter07_06_editing_features.html"
             }
         ]
     }
