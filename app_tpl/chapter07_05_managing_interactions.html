@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        include "head.html"
+        
+        <style>
+            .toggle {
+                width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">        
+
+            include "header.html"
+ 
+            <h2>Managing interactions</h2>
+
+            <p>This recipe shows how we can add or remove interactions to the map.</p> 
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="DoubleClickZoom" data-off="DoubleClickZoom">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="KeyboardPan" data-off="KeyboardPan">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="KeyboardZoom" data-off="KeyboardZoom">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="MouseWheelZoom" data-off="MouseWheelZoom">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="PinchRotate" data-off="PinchRotate">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="PinchZoom" data-off="PinchZoom">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="DragPan" data-off="DragPan">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="DragZoom" data-off="DragZoom">
+
+            <input type="checkbox" checked data-size="mini" data-toggle="toggle" data-on="DragRotate" data-off="DragRotate">
+
+            <div id="map" class="map"></div>
+
+            <h4 class="text-muted">Source code:</h4>
+            <pre><code id="code_text" class="javascript"></code></pre>
+
+            include "footer.html"
+
+        </div>
+
+        include "tail.html"
+
+        include "ganalytics.html"
+
+        <script id="code">
+            var duration = 400;
+
+            // Create interactions array
+            var interactions = [                
+                new ol.interaction.DoubleClickZoom({
+                    duration: duration
+                }),
+                new ol.interaction.KeyboardPan({
+                    pixelDelta: 256
+                }),
+                new ol.interaction.KeyboardZoom({
+                    duration: duration
+                }),
+                new ol.interaction.MouseWheelZoom({
+                    duration: duration
+                }),
+                new ol.interaction.PinchRotate(),
+                new ol.interaction.PinchZoom({
+                    duration: duration
+                }),
+                new ol.interaction.DragPan({
+                    kinetic: new ol.Kinetic(-0.01, 0.1, 200)
+                }),
+                new ol.interaction.DragZoom(),
+                new ol.interaction.DragRotate(),
+            ];
+
+            // Initialize map
+            var map = new ol.Map({
+                target: 'map',
+                renderer: 'canvas',
+                interactions: [],
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.transform([2.1833, 42.3833], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 7
+                })
+            });
+ 
+            // Listen for changes on chekcboxes
+            $('input').on('change', function(event) {
+                var index = $('input').index(event.target);
+                var checked = $(event.target).is(':checked');
+
+                if(checked) {
+                    map.addInteraction(interactions[index]);
+                } else {
+                    map.removeInteraction(interactions[index]);
+                }
+            });
+        </script>
+
+        include "sourcecode.html"
+
+    </body>
+</html>
