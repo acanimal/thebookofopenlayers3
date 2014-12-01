@@ -264,9 +264,10 @@
                 "thumbnail": "chapter07_05_managing_interactions.png"
             },
             {
-                "title": "Editing features",
-                "description": "Draw and store features in different vector formats",
-                "url": "chapter07_06_editing_features.html"
+                "title": "Selecting features",
+                "description": "Demonstrates how to use and configure the select interaction",
+                "url": "chapter07_06_selecting_features.html",
+                "thumbnail": "chapter07_06_selecting_features.png"
             }
         ]
     }
