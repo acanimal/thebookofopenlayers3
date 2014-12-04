@@ -85,7 +85,7 @@
             var map = new ol.Map({
                 target: 'map',
                 renderer: 'canvas',
-                interactions: [],
+                interactions: [interactions],
                 layers: [
                     new ol.layer.Tile({
                         source: new ol.source.MapQuest({
@@ -99,16 +99,18 @@
                 })
             });
  
-            // Listen for changes on chekcboxes
-            $('input').on('change', function(event) {
-                var index = $('input').index(event.target);
-                var checked = $(event.target).is(':checked');
+            // Listen for changes on chekcboxes once document was ready
+            $(document).ready(function(){
+                $('input').on('change', function(event) {
+                    var index = $('input').index(event.target);
+                    var checked = $(event.target).is(':checked');
 
-                if(checked) {
-                    map.addInteraction(interactions[index]);
-                } else {
-                    map.removeInteraction(interactions[index]);
-                }
+                    if(checked) {
+                        map.addInteraction(interactions[index]);
+                    } else {
+                        map.removeInteraction(interactions[index]);
+                    }
+                });
             });
         </script>
 
