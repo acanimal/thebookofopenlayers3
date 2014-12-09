@@ -14,7 +14,17 @@
 
             <h2>Editing features</h2>
 
-            <p>asdasdas</p>
+            <p>This example shows how we can use the <code>ol.interaction.Select</code>, <code>ol.interaction.Draw</code> and <code>ol.interaction.Modify</code> interactions to create a basic vector data editor.</p>
+
+            <div class="btn-group btn-group-sm" role="group" aria-label="Draw">
+                <button id="pointer" type="button" class="btn btn-primary">Pan</button>
+                <button id="select" type="button" class="btn btn-default">Select</button>
+
+                <button id="point" type="button" class="btn btn-success">Point</button>
+                <button id="line" type="button" class="btn btn-success">Line</button>
+                <button id="polygon" type="button" class="btn btn-success">Polygon</button>
+                <button id="modify" type="button" class="btn btn-danger">Modify</button>
+            </div>
 
             <div id="map" class="map"></div>
 
@@ -30,44 +40,98 @@
         include "ganalytics.html"
 
         <script id="code">
-            // Vector layer from a geojson object
-            var gjsonObject = new ol.layer.Vector({
-                source: new ol.source.GeoJSON({
-                    object: {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Polygon',
-                            'coordinates': [[[3000000, 6000000], [4000000, 4000000], [5000000, 6000000]]]
-                        }
-                    }
+            // Create vector layers
+            var limitsLayer = new ol.layer.Vector({
+                source: new ol.source.StaticVector({
+                    url: 'data/world_limits.json',
+                    format: new ol.format.TopoJSON(),
+                    projection: 'EPSG:3857'
+                }),
+                style: new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: 'rgba(55, 155, 55, 0.3)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(55, 155, 55, 0.8)',
+                        width: 1
+                    }),
+                    image: new ol.style.Circle({
+                        radius: 7,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(55, 155, 55, 0.5)',
+                        })
+                    })
                 })
             });
-
-            // Vector layer from a geojson string
-            var gjsonString = new ol.layer.Vector({
-                source: new ol.source.GeoJSON({
-                    text: '{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-5000000,-1000000],[-4000000,1000000],[-3000000,-1000000]]]}}'
-                })
-            });
-
 
             // Create the map
             var map = new ol.Map({
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
-                interactions: ol.interaction.defaults().extend([new ol.interaction.Select()]),
                 layers: [
                     // Add a new Tile layer getting tiles from OpenStreetMap source
                     new ol.layer.Tile({
-                        source: new ol.source.OSM()
+                        source: new ol.source.MapQuest({
+                            layer: 'osm'
+                        })
                     }),
-                    gjsonString, 
-                    gjsonObject
+                    limitsLayer
                 ],
                 view: new ol.View({
-                    center: ol.proj.transform([0, 0], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 2
+                    center: ol.proj.transform([2, 41], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 3
                 })
+            });
+
+            var button = $('#pointer').button('toggle');
+            var interaction;
+            $('div.btn-group button').on('click', function(event) {
+                var id = event.target.id;
+
+                // Toggle buttons
+                button.button('toggle');
+                button = $('#'+id).button('toggle');
+                // Remove previous interaction
+                map.removeInteraction(interaction);
+                // Update active interaction
+                switch(event.target.id) {
+                    case "select":
+                        interaction = new ol.interaction.Select();
+                        map.addInteraction(interaction);
+                        break;
+                    case "point":
+                        interaction = new ol.interaction.Draw({
+                            type: 'Point',
+                            source: limitsLayer.getSource()
+                        });
+                        interaction.on('drawend', function(){
+                            limitsLayer.getSource().changed();
+                        });
+                        map.addInteraction(interaction);
+                        break;
+                    case "line":
+                        interaction = new ol.interaction.Draw({
+                            type: 'LineString',
+                            source: limitsLayer.getSource()
+                        });
+                        map.addInteraction(interaction);
+                        break;
+                    case "polygon":
+                        interaction = new ol.interaction.Draw({
+                            type: 'Polygon',
+                            source: limitsLayer.getSource()
+                        });
+                        map.addInteraction(interaction);
+                        break;
+                    case "modify":
+                        interaction = new ol.interaction.Modify({
+                            features: new ol.Collection(limitsLayer.getSource().getFeatures())
+                        });
+                        map.addInteraction(interaction);
+                        break;
+                    default:
+                        break;
+                }
             });
         </script>
 

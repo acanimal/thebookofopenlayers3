@@ -268,6 +268,12 @@
                 "description": "Demonstrates how to use and configure the select interaction",
                 "url": "chapter07_06_selecting_features.html",
                 "thumbnail": "chapter07_06_selecting_features.png"
+            },
+            {
+                "title": "Editing features",
+                "description": "Basic vector data editor",
+                "url": "chapter07_07_editing_features.html",
+                "thumbnail": "chapter07_07_editing_features.png"
             }
         ]
     }
