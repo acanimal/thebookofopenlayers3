@@ -17,7 +17,7 @@
             <p>This example shows how we can use the <code>ol.interaction.Select</code>, <code>ol.interaction.Draw</code> and <code>ol.interaction.Modify</code> interactions to create a basic vector data editor.</p>
 
             <div class="btn-group btn-group-sm" role="group" aria-label="Draw">
-                <button id="pointer" type="button" class="btn btn-primary">Pan</button>
+                <button id="pan" type="button" class="btn btn-primary">Pan</button>
                 <button id="select" type="button" class="btn btn-default">Select</button>
 
                 <button id="point" type="button" class="btn btn-success">Point</button>
@@ -69,7 +69,6 @@
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
                 layers: [
-                    // Add a new Tile layer getting tiles from OpenStreetMap source
                     new ol.layer.Tile({
                         source: new ol.source.MapQuest({
                             layer: 'osm'
@@ -83,7 +82,7 @@
                 })
             });
 
-            var button = $('#pointer').button('toggle');
+            var button = $('#pan').button('toggle');
             var interaction;
             $('div.btn-group button').on('click', function(event) {
                 var id = event.target.id;
@@ -103,9 +102,6 @@
                         interaction = new ol.interaction.Draw({
                             type: 'Point',
                             source: limitsLayer.getSource()
-                        });
-                        interaction.on('drawend', function(){
-                            limitsLayer.getSource().changed();
                         });
                         map.addInteraction(interaction);
                         break;
