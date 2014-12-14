@@ -61,6 +61,7 @@
             });
             dragBoxInteraction.on('boxend', function(event) {
                 var selectedFeatures = selectInteraction.getFeatures();
+                selectedFeatures.clear();
                 var extent = dragBoxInteraction.getGeometry().getExtent();
                 limitsLayer.getSource().forEachFeatureIntersectingExtent(extent, function(feature) {
                     selectedFeatures.push(feature);
