@@ -274,6 +274,12 @@
                 "description": "Basic vector data editor",
                 "url": "chapter07_07_editing_features.html",
                 "thumbnail": "chapter07_07_editing_features.png"
+            },
+            {
+                "title": "Selecting features within a vector box",
+                "description": "How to select features that intersects with a vector box",
+                "url": "chapter07_08_selecting_features_box.html",
+                "thumbnail": "chapter07_08_selecting_features_box.png"
             }
         ]
     }
